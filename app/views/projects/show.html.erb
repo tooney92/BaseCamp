@@ -1,39 +1,12 @@
-<h1>projects </h1>
 
-<% flash.each do |type, msg| %>
-    <% if type == "error" %>
-        <div class="alert alert-danger"><%= msg %> </div>
-    <% elsif type == "success" %>
-        <div class= "alert alert-success"><%= msg %> </div>
-    <% elsif type == "info" %>
-        <div class= "alert alert-danger"><%= msg %> </div>
-    <% end %>
-<% end %>
 
-<h1 align="center", > PROJECTS </h1>
-<div class = "jumbotron bg-dark mr-4 ml-4" >
-<table class="my-table table-bordered", style = "color:white">
-    <thead>
-      <tr>
-        <!-- <th scope="col">#</th> -->
-        <th scope="col">title</th>
-        <th scope="col">body</th>
-        <th scope="col">created_at</th>
-        <th scope="col">delete</th>
-        <th scope="col">Edit</th>
-      </tr>
-    </thead>
-    <tbody>
-    <% @projects.each do |project| %>  
-      <tr>
-        <td><%= project.title %> </td>
-        <td><%= project.body %></td>
-        <td><%= project.created_at %></td>
-        <td><%= link_to "destroy", users_path+ "/#{project.user_id}/projects/#{project.id}", data: {confirm: "Are you sure bout that"}, method: "delete", :class => "btn btn-primary" %></td> 
-        <td><%= link_to "edit", users_path+ "/#{project.user_id}/projects/#{project.id}", data: {confirm: "Are you sure bout that"}, method: "delete", :class => "btn btn-primary" %></td> 
-      </tr>
-    <% end %>
-    </tbody>
-  </table>
-
-  </div>
+<div class="card">
+    <div class="card-header">
+      <h1>Title: <%= @project.title %> </h1>
+    </div>
+    <div class="card-body">
+      <h5 class="card-title"><p>Created: <%= time_ago_in_words(@project.created_at)  %> ago </p></h5>
+      <p class="card-text"><%= @project.body %></p>
+      <%= link_to "back",  user_projects_path, :class => "btn btn-primary" %>
+    </div>
+</div>

@@ -5,7 +5,8 @@ class ProjectsController < ApplicationController
     end
 
     def index
-        render plain: "why am i here?"
+        @user = User.find_by_id(session[:id])
+        @projects = @user.projects
     end
 
     def create
@@ -41,7 +42,8 @@ class ProjectsController < ApplicationController
 
     def show
         # render plain: "i am projects view"
-        @projects = Project.all
+        # render 'show'
+        @project = Project.find_by_id(params[:id])
     end
 
     def destroy
@@ -49,6 +51,40 @@ class ProjectsController < ApplicationController
         flash[:info] = "project #{@project.title} deleted!"
         @project.destroy
         redirect_to user_project_path
+    end
+
+    def edit
+        @project = Project.find_by(params[:id])
+    end 
+
+    def update
+        @project = Project.find_by(session[:id])
+        @project.body = project_params['body']
+        @project.title = project_params['title']
+        
+        if project_params['body'] == ""  and  project_params['title'] == ""
+            flash[:error] = "cannot save empty title and body!!"
+            render 'edit'
+            
+        elsif project_params['body'] == "" 
+            flash[:error] = "cannot save empty body!!!!!"
+            render 'edit'
+
+        elsif project_params['title'] == "" 
+            flash[:error] = "cannot save empty title!!!!"
+            render 'edit'
+
+        else
+            flash[:success] = "project updated successfully!!"
+            @project.save
+            redirect_to user_project_path
+
+        end
+    end
+
+    def read
+        @project = Project.find_by_user_id(params[:id])
+        render plain: @project.inspect
     end
 
     private

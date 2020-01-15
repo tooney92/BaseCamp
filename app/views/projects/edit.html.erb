@@ -1,0 +1,32 @@
+<h1>edit </h1>
+
+<!-- <div class = "jumbotron"> -->
+<% flash.each do |type, msg| %>
+<% if type == "error" %>
+    <div class="alert alert-danger"><%= msg %> </div>
+<% elsif type == "success" %>
+    <div class= "alert alert-success"><%= msg%> </div>
+<% elsif type == "info" %>
+    <div class= "alert alert-danger"><%= msg%> </div>
+<% end %>
+<% end %>
+
+<%= form_with scope: :project, url: user_project_path,  local: true,  method: :patch do |form| %>
+  <p>
+    <%= form.label :title %><br>
+    <%= form.text_field :title, :class => "form-control" %>
+  </p>
+ 
+  <p>
+    <%= form.label :body %><br>
+    <%= form.text_area :body, :class => "form-control", :rows => "9"%>
+  </p>
+ 
+
+  <p>
+    <%= form.submit "update", :class => "btn, btn-primary" %>
+  </p>
+
+<% end %>
+
+</div>

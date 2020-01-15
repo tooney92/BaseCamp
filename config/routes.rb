@@ -7,7 +7,7 @@ Rails.application.routes.draw do
     get "dashboard" => 'users#dashboard', :on => :collection 
     get "profile" => 'users#profile', :on => :collection
     get "allusers" => 'users#allusers', :on => :collection
-    resources :projects
+    resources :projects 
   end
  
   root "users#index"
