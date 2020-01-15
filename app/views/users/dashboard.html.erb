@@ -1,0 +1,32 @@
+<div class = "jumbotron">
+<h1> hello <%= session[:fullname] %> </h1>
+
+<% flash.each do |type, msg| %>
+
+    <% if type == 'success' %>
+        <div class= "alert alert-success"><%= msg%> </div>
+    <% end %>
+
+<% end %>
+
+
+<div class="col-md-3">
+            <div class="list-group">
+                <%#= link_to "Dashboard", dashboard_users_path, :class => "list-group-item list-group-item-action active" %>
+                <%= link_to "Profile", profile_users_path, :class => "list-group-item list-group-item-action" %>
+                <%= link_to "Projects", "#{current_user.id}/projects/show", :class => "list-group-item list-group-item-action" %>
+                <%= link_to "New Project", "#{current_user.id}/projects/new", :class => "list-group-item list-group-item-action" %>
+                <%#= link_to "Create Project", projects_create_users_path, :class => "list-group-item list-group-item-action" %>
+                <%#= link_to "Projects", projects_users_path, :class => "list-group-item list-group-item-action" %>
+                <%#= link_to "Delete Your Account", users_path + "/destroy", method: :delete, data: {confirm: "Are you sure you want to delete your account?"}, :class => "list-group-item list-group-item-action" %>
+                <%#= link_to "Logout", users_path + "/logout", :class => "list-group-item list-group-item-action" %>
+            </div>
+</div>
+
+</div>
+
+
+
+
+
+

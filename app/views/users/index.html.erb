@@ -1,0 +1,18 @@
+
+<div class = "container">
+    <div class="jumbotron bg-dark mt-4 ml-6">
+    </div>
+    <div class="jumbotron">
+    <h1 class="display-4">MyBaseCamp</h1>
+    <p class="lead">ready to collaborate, create, share, read and safely save your projects? {not a typo :)} then welcome to your one stop project managment site!</p>
+    <hr class="my-4">
+    <p>So what are you waiting for? hit that button!</p>
+    
+    <% if logged_in? %>
+        <small id="emailHelp" class="form-text text-muted">if you are reading this you are already signed man</small>
+    <% else %>
+        <%= link_to "sign up", new_user_path,  :class => "btn btn-primary btn-lg" %>
+    <% end %>
+    </div>
+
+</div>

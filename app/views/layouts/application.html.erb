@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Mybasecamp</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" %> 
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow">
+      <img src="" width="30" height="30" alt="">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <% if logged_in? %>
+            <%= link_to "Home", users_path, :class => "nav-link"%>
+            <%= link_to "DashBoard", dashboard_users_path, :class => "nav-link"%>
+            <%= link_to "Logout", logout_users_path, :class => "nav-link"%>
+
+          <%else%>
+            <%= link_to "Home", users_path, :class => "nav-link"%>
+            <%= link_to "Log in", login_users_path, :class => "nav-link"%>
+          <% end %>
+        
+        </ul>
+      </div>
+    </nav>
+    <%= yield %>
+  </body>
+</html>

@@ -1,0 +1,36 @@
+<h1> Log In </h1>
+
+<% flash.each do |type, msg| %>
+    <% if type == "error" %>
+        <div class="alert alert-danger"><%= msg %> </div>
+    <% elsif type == "success" %>
+        <div class= "alert alert-success"><%= msg%> </div>
+    <% elsif type == "info" %>
+        <div class= "alert alert-danger"><%= msg%> </div>
+    <% end %>
+<% end %>
+
+
+
+
+<div class="jumbotron">
+  
+<%= form_with scope: :user, url: login_users_path,  local: true do |form| %>
+  <p>
+    <%= form.label :email %><br>
+    <%= form.email_field :email, :class => "form-control" %>
+  </p>
+ 
+  <p>
+    <%= form.label :password %><br>
+    <%= form.password_field :password, :class => "form-control" %>
+  </p>  
+
+  <p>
+    <%= form.submit "log in", :class => "btn btn-primary"%>
+  </p>
+
+  <p> Don't have an account? <%= link_to "sign up", new_user_path %> </p>
+<% end %>
+
+</div>

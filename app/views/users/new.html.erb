@@ -1,0 +1,40 @@
+<h1> creating user page </h1>
+
+<div class = "jumbotron">
+
+<% if @user != nil and @user.errors.any? %>
+        <% @user.errors.full_messages.each do |msg| %>
+            <div class="alert alert-danger"><%= msg %></div>
+        <% end %>
+<% end %>
+
+<%= form_with scope: :user, url: users_path,  local: true do |form| %>
+  <p>
+    <%= form.label :Full_name %><br>
+    <%= form.text_field :fullname, :class => "form-control" %>
+  </p>
+ 
+  <p>
+    <%= form.label :email %><br>
+    <%= form.email_field :email, :class => "form-control"%>
+  </p>
+ 
+  <p>
+    <%= form.label :password %><br>
+    <%= form.password_field :password, :class => "form-control" %>
+  </p>  
+
+  <p>
+    <%= form.label :confirm_password %><br>
+    <%= form.password_field :confirm_password, :class => "form-control" %>
+  </p>
+
+  <p>
+    <%= form.submit "Sign Up", :class => "btn, btn-primary"%>
+  </p>
+
+  </p> already have an account? <%= link_to "log in", login_users_path, :class => "btn btn-outline-primary" %> </p>
+<% end %>
+
+
+</div>

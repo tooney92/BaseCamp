@@ -1,0 +1,46 @@
+<h1> new project page </h1>
+
+
+<div class = "jumbotron ">
+<!-- 
+    <% if @user != nil and @user.errors.any? %>
+            <% @user.errors.full_messages.each do |msg| %>
+                <div class="alert alert-danger"><%= msg %></div>
+            <% end %>
+    <% end %>
+
+    ASK TUMISE
+ -->
+        
+    <% flash.each do |type, msg| %>
+    <% if type == "error" %>
+        <div class="alert alert-danger"><%= msg %> </div>
+    <% elsif type == "success" %>
+        <div class= "alert alert-success"><%= msg%> </div>
+    <% elsif type == "info" %>
+        <div class= "alert alert-danger"><%= msg%> </div>
+    <% end %>
+    <% end %>
+
+
+    
+    <%= form_with scope: :project, url: user_projects_path,  local: true do |form| %>
+      <p>
+        <%= form.label :title %><br>
+        <%= form.text_field :title, :class => "form-control" %>
+      </p>
+     
+      <p>
+        <%= form.label :body %><br>
+        <%= form.text_area :body, :class => "form-control"%>
+      </p>
+     
+    
+      <p>
+        <%= form.submit "create", :class => "btn, btn-primary"%>
+      </p>
+    
+    <% end %>
+    
+    
+    </div>
