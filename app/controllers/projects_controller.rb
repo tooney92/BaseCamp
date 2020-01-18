@@ -16,6 +16,7 @@ class ProjectsController < ApplicationController
         @project[:body] = project_params['body']
         @project[:project_id] = SecureRandom.uuid
         @project[:user_id] = session[:id]
+        @project.attachments.attach(params[:project][:attachments])
 
         # render plain: @project.inspect
         
@@ -48,17 +49,17 @@ class ProjectsController < ApplicationController
 
     def destroy
         @project = Project.find(params[:id])
-        flash[:info] = "project #{@project.title} deleted!"
+        flash[:info] = "Project: #{@project.title}was deleted!"
         @project.destroy
-        redirect_to user_project_path
+        redirect_to user_projects_path
     end
 
     def edit
-        @project = Project.find_by(params[:id])
+        @project = Project.find_by(id: params[:id])
     end 
 
     def update
-        @project = Project.find_by(session[:id])
+        @project = Project.find(params[:id])
         @project.body = project_params['body']
         @project.title = project_params['title']
         
@@ -77,7 +78,7 @@ class ProjectsController < ApplicationController
         else
             flash[:success] = "project updated successfully!!"
             @project.save
-            redirect_to user_project_path
+            redirect_to user_projects_path
 
         end
     end
@@ -89,7 +90,7 @@ class ProjectsController < ApplicationController
 
     private
         def project_params
-            params.require(:project).permit(:title, :body)
+            params.require(:project).permit(:title, :body, :attachments)
         end
 
 end

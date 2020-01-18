@@ -3,6 +3,7 @@ Rails.application.routes.draw do
     get "login", :on => :collection
     get "logout", :on => :collection
     get "delete/:user_id" => 'users#delete', :on => :collection
+    get "makeadmin/:id" => 'users#make_admin', :on => :collection
     post "login" => 'users#login_user', :on => :collection
     get "dashboard" => 'users#dashboard', :on => :collection 
     get "profile" => 'users#profile', :on => :collection
@@ -12,3 +13,4 @@ Rails.application.routes.draw do
  
   root "users#index"
 end
+

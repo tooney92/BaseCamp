@@ -18,7 +18,13 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
-          <% if logged_in? %>
+          <% if logged_in? and is_admin? %>
+            <%= link_to "Home", users_path, :class => "nav-link"%>
+            <%= link_to "DashBoard", dashboard_users_path, :class => "nav-link"%>
+            <%= link_to "Logout", logout_users_path, :class => "nav-link"%>
+            <%= link_to "allusers", logout_users_path, :class => "nav-link" %>
+
+          <% elsif logged_in? %>
             <%= link_to "Home", users_path, :class => "nav-link"%>
             <%= link_to "DashBoard", dashboard_users_path, :class => "nav-link"%>
             <%= link_to "Logout", logout_users_path, :class => "nav-link"%>
@@ -27,7 +33,7 @@
             <%= link_to "Home", users_path, :class => "nav-link"%>
             <%= link_to "Log in", login_users_path, :class => "nav-link"%>
           <% end %>
-        
+
         </ul>
       </div>
     </nav>

@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
     before_action :authorize_login, :only => [:login, :new]
     before_action :authorize_logout, :only => [:dashboard, :profile, :projects, :create_project, :show, :logout]
+    before_action :admin_check, :only => [:allusers]
 
     def index
     end
@@ -89,9 +90,16 @@ class UsersController < ApplicationController
 
     def allusers
         @users = User.all
+    end
 
-        
-
+    def make_admin
+        @user = User.find(params[:id])
+        if @user[:role] == false 
+            @user.update_attribute(:role, true)
+        else
+            @user.update_attribute(:role, false)
+        end
+        redirect_to allusers_users_path
     end
 
 
@@ -99,5 +107,22 @@ class UsersController < ApplicationController
         def user_params
             params.require(:user).permit(:fullname, :email, :password)
         end
+
+        def admin_check
+
+            if session[:id]
+                @user = User.find(session[:id])
+                if @user.role == false
+                    flash[:alert] = "unauthorized access to /allusers!"
+                    redirect_to  dashboard_users_path
+                end
+            else
+                flash[:alert] = "unauthorized access to /allusers!"
+                redirect_to login_users_path
+            end
+
+        end
+
+    
     
 end

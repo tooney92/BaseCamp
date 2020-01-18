@@ -19,3 +19,14 @@
     position: absolute;
     bottom: 5px;
 }
+
+.attachments{
+    display: flex;
+    justify-content: space-around;
+    flex-flow: row wrap;
+    margin: 0 auto;
+}
+
+.container {
+    display: flex; /* or inline-flex */
+  }

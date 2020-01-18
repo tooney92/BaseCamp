@@ -5,6 +5,8 @@
 
     <% if type == 'success' %>
         <div class= "alert alert-success"><%= msg%> </div>
+    <% elsif type == 'alert' %>
+        <div class= "alert alert-danger"><%= msg%> </div>
     <% end %>
 
 <% end %>

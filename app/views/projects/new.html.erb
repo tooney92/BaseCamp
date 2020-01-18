@@ -35,6 +35,10 @@
         <%= form.text_area :body, :class => "form-control"%>
       </p>
      
+      <div class="custom-file col-md-6">
+        <%= form.label :attachments,  class: "col-md-4 control-label mt-3" %>
+         <%= form.file_field :attachments, :multiple => true  %>
+     </div>
     
       <p>
         <%= form.submit "create", :class => "btn, btn-primary"%>

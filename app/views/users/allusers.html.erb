@@ -16,9 +16,11 @@
         <!-- <th scope="col">#</th> -->
         <th scope="col">Fullname</th>
         <th scope="col">email</th>
-        <th scope="col">role</th>
+        <th scope="col">Admin role</th>
         <th scope="col">created_at</th>
         <th scope="col">delete</th>
+        <!-- <th scope="col">show</th> -->
+        <th scope="col">make admin</th>
       </tr>
     </thead>
     <tbody>
@@ -27,8 +29,13 @@
         <td><%= user.fullname %> </td>
         <td><%= user.email %></td>
         <td><%= user.role %></td>
-        <td><%= user.created_at %></td>
+        <td><%= time_ago_in_words(user.created_at) %> ago</td>
         <td><%= link_to "delete", users_path + "/delete/#{user.userid}", data: {confirm: "Are you sure bout that"}, :class => "btn btn-primary" %></td> 
+        <% if user.role == false  %>
+          <td><%= link_to "make_admin", users_path + "/makeadmin/#{user.id}", :class => "btn btn-danger" %></td>
+        <% else %>
+          <td><%= link_to "remove_admin", users_path + "/makeadmin/#{user.id}", :class => "btn btn-primary" %></td>
+        <% end %>
       </tr>
     <% end %>
     </tbody>

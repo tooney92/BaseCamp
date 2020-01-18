@@ -9,7 +9,7 @@
     <p>So what are you waiting for? hit that button!</p>
     
     <% if logged_in? %>
-        <small id="emailHelp" class="form-text text-muted">if you are reading this you are already signed man</small>
+        <small id="emailHelp" class="form-text text-muted">if you are reading this you are already logged in</small>
     <% else %>
         <%= link_to "sign up", new_user_path,  :class => "btn btn-primary btn-lg" %>
     <% end %>
