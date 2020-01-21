@@ -1,17 +1,82 @@
+<% flash.each do |type, msg| %>
+    <% if type == "error" %>
+        <div class="alert alert-danger"><%= msg %> </div>
+    <% elsif type == "success" %>
+        <div class= "alert alert-success"><%= msg %> </div>
+    <% elsif type == "info" %>
+        <div class= "alert alert-danger"><%= msg %> </div>
+    <% end %>
+<% end %>
 
+<div class="project-container">
 
-<div class="container">
-    <div class="card-header">
-      <h1>Title: <%= @project.title %> </h1>
-    </div>
-    <div class="card-body">
-      <h5 class="card-title"><p>Created: <%= time_ago_in_words(@project.created_at)  %> ago </p></h5>
-      <p class="card-text"><%= @project.body %></p>
-    </div>
-</div>
-<div class= "attachments">
-        <% @project.attachments.each do |file| %> 
-            <%= image_tag file,:alt => "pic of me", :width => "10px", :height => "50px"%>
-        <% end %>
-    </div>
+  <div class="project">
+    <h2><p>Title: <%= @project.title %></p></h2>
+    <h4>Created: <%= time_ago_in_words(@project.created_at)  %> ago </h4>
+    <p> <%= @project.body %> </p>
     <%= link_to "back",  user_projects_path, :class => "btn btn-primary" %>
+  </div>
+
+  <div class="files">
+    <div class="images">
+      <div class= "centered-button">
+        <p class="btn btn-primary">images</p>
+      </div>
+      <div class= "attachments">
+        <% @project.attachments.each do |file| %> 
+            <% if file.image?  %>
+              <%= image_tag file,:alt => "pic of me", :width => "90px", :height => "50px"%>
+            <% end %>
+        <% end %>
+      </div> 
+    </div>
+
+    <p>files</p>
+    <div class="attachments">
+       <% @project.attachments.each do |file| %> 
+        <%if !file.image? %>
+          <div class="file">
+              <img src="/assets/file.svg">
+              <p><%= file.blob.filename %></p>
+              <%= link_to 'Download file', rails_blob_path(file, disposition: 'attachment') %>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+
+    <div class="thread">
+      <%= form_with scope: :topic, url: "/#{@project.user_id}/projects/#{@project.id}/topic/new",  local: true do |form| %>
+          <p>
+            <%= form.label :New_thread %>
+            <%= form.text_field :title, :class => "form-control" %>
+          </p>
+
+          <p>
+            <%= form.submit "create", :class => "btn, btn-primary"%>
+          </p>
+      <% end %>
+      <h3>thread count</h3>
+      <p>total threads: <%= @topics.length %></p>
+    </div>
+    <h3>Your threads:</h3>
+    <div class="mythreads">
+      <% @topics.each do |topic|%>
+      <div class="thread">
+        <%= topic.title %> 
+        <%= link_to "go to thread", "/projects/#{@project.id}/topic/#{topic.id}", :class => 'btn btn-primary' %>
+        <%= link_to "edit", "/projects/#{@project.id}/topic/#{topic.id}/edit", :class => 'btn btn-success' %>
+        <%= link_to "destroy", "/projects/#{@project.id}/topic/#{topic.id}", :class => 'btn btn-danger', :method => 'delete' %>
+      </div>
+      <% end %>
+    </div>
+
+  </div>
+</div>
+<%# <div>
+  <P>hello</P>
+</div>
+
+<div>
+
+</div> %>
+

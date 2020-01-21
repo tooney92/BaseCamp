@@ -10,9 +10,9 @@
     display: flex;
     flex-flow: row wrap;
     justify-content: space-around;
-    width: 900px;
     margin: 0 auto;
     max-width: 100%;
+    background-color: slateblue;
 }
 
 .action {
@@ -21,12 +21,185 @@
 }
 
 .attachments{
+    // display: flex;
+    // justify-content: space-around;
+    // flex-flow: row wrap;
+    // margin: 0 auto;
+    padding: 30px 0;
     display: flex;
+    align-items: center;
     justify-content: space-around;
-    flex-flow: row wrap;
-    margin: 0 auto;
+    flex-wrap: wrap;
 }
 
 .container {
     display: flex; /* or inline-flex */
   }
+
+.project-container{
+    max-width: 95%;
+    display: flex;
+    margin: 40px auto; 
+}  
+
+.project{
+    flex: 2;
+    // order: 2;
+    // background-color: burlywood;
+    padding: 10px;
+    border: 1px;
+    border-style: solid;
+    border-color: rgba(0,0,0,0.2);
+}
+
+// .files{
+//     display: flex;
+//     flex-direction: column;
+//     flex: 1;
+// }
+.images{
+    flex: 1;
+    border: 1px;
+    border-style: solid;
+    border-color: rgba(0,0,0,0.2);
+    // background-color: cornflowerblue;
+    // display: flex;
+}
+
+.centered-button{
+    // justify-content: center;
+    // background-color: darkviolet;
+    margin: auto;
+}
+
+.files{
+    flex: 1;
+    border: 1px;
+    border-style: solid;
+    border-color: rgba(0,0,0,0.2);
+    // background-color: darksalmon;
+}
+
+.c{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 85%;
+    max-width: 100%;
+    margin: 40px auto;
+    // background-color: springgreen;
+    justify-content: space-evenly;
+    background-color: springgreen;
+}
+
+.action{
+    display: flex;
+    justify-content: center;
+    .card-link {
+        margin: 0 5px;
+    }
+}
+
+.file{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    // background-color: steelblue;
+}
+
+.edit{
+    width: 500px;
+    max-width: 95%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+}
+.mythreads{
+    display: flex;
+    flex-direction: column;
+    // background: springgreen;
+    justify-content: space-around;
+}
+.thread{
+    flex: 1;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.thread-project-container{
+    max-width: 95%;
+    display: flex;
+    margin: 40px auto;
+    background-color: rgba(13, 76, 170, 0.514);
+}
+
+.thread-project{
+    flex: 2;
+    // order: 2;
+    background-color: cornsilk;
+    padding: 10px;
+    border: 1px;
+    border-style: solid;
+    border-color: rgba(0,0,0,0.2);
+    height: 90vh;
+    overflow: auto;
+    border-radius: 10px;
+    margin: 10px;
+}
+.thread-section{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    border: 1px;
+    border-style: solid;
+    border-color: rgba(0,0,0,0.2);
+    background-color: rgba(13, 76, 170, 0.514);
+    // background-color: red;
+    height: 90vh;
+    overflow: auto;
+}
+
+.topic-thread{
+    border: 1px;
+    border-style: solid;
+    border-color: rgba(0,0,0,0.2);
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(13, 76, 170, 0.514);
+}
+
+.heading{
+    margin-top: 5px;
+    border: 1px;
+    border-style: solid;
+    border-color: rgba(0,0,0,0.2);
+    border-radius: 10px;
+    background-color: cornsilk;
+}
+
+.comments-head{
+    text-align: center;
+    border: 1px;
+    border-style: solid;
+    border-color: rgb(37, 4, 37);
+    background-color: cornsilk;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+
+.comment{
+    // background-color: brown;
+    flex: 1;
+    border: 1px;
+    border-style: solid;
+    border-radius: 10px;
+    border-color: rgba(37, 1, 48, 0.2);
+    margin: 5px;
+    background-color: cornsilk;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+
+}

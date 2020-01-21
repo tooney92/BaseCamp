@@ -1,0 +1,61 @@
+<div class="thread-project-container">
+
+    <div class="thread-project">
+        <h2><p>Title: <%= @project.title %></p></h2>
+        <h4>Created: <%= time_ago_in_words(@project.created_at)  %> ago </h4>
+        <p> <%= @project.body %> </p>
+        <%# <%= link_to "back",  user_projects_path, :class => "btn btn-primary" %> 
+    </div>
+
+    <div class="thread-section">
+        <div class="heading">
+            <h3>Thread: <%= @topic.title %> </h3>
+        </div>
+        <div class = "comments-head">
+            <h5>Comments</h5>
+        </div>
+        <div class="topic-thread">
+            <% @topic.messages.each do |message| %>
+                <div class="comment">
+                   <p> Comment: <%= message.message %></p> 
+                    by: <%= @user.fullname %>
+                   posted: <%= time_ago_in_words(message.created_at) %> ago
+                </div>
+            <% end %>
+        </div>
+         <%= form_with scope: :message, url: "/projects/#{@project.id}/topic/#{@topic.id}/messages/new",  local: true do |form| %>
+            <p>
+                <%# <%= form.label :comment %> 
+                <%= form.text_area :message,:rows => 8, :class => "form-control" %>
+            </p>
+
+            <p>
+                <%= form.submit "post", :class => "btn, btn-primary"%>
+            </p>
+        <% end %>
+
+        <%# <div>
+            <h5>comments</h5>
+        </div> %>
+
+    </div>
+
+  
+    
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>

@@ -1,0 +1,12 @@
+<h1>Thread Edit</h1>
+
+<%= form_with scope: :topic, url: "/projects/#{@project.id}/topic/#{@topic.id}",  method: :put, local: true do |form| %>
+          <p>
+            <%= form.label :New_thread %>
+            <%= form.text_field :title, :class => "form-control" %>
+          </p>
+
+          <p>
+            <%= form.submit "update", :class => "btn, btn-primary"%>
+          </p>
+<% end %>

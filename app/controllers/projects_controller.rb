@@ -18,10 +18,6 @@ class ProjectsController < ApplicationController
         @project[:user_id] = session[:id]
         @project.attachments.attach(params[:project][:attachments])
 
-        # render plain: @project.inspect
-        
-
-
         if @project.save
             
             redirect_to dashboard_users_path, :flash => { :success => "new project added!"}
@@ -45,6 +41,11 @@ class ProjectsController < ApplicationController
         # render plain: "i am projects view"
         # render 'show'
         @project = Project.find_by_id(params[:id])
+        @topics = @project.topics
+        # render plain: @topics.inspect
+        # @comments = @topics.map do |topic|
+        #     topic.comments
+        # end
     end
 
     def destroy
@@ -77,7 +78,8 @@ class ProjectsController < ApplicationController
 
         else
             flash[:success] = "project updated successfully!!"
-            @project.save
+            @project.update(project_params.except(:attachments))
+            @project.attachments.attach(project_params[:attachments])
             redirect_to user_projects_path
 
         end
@@ -88,9 +90,65 @@ class ProjectsController < ApplicationController
         render plain: @project.inspect
     end
 
+    def new_topic
+        @project = Project.find(params[:project_id])
+        @project.topics.create(topic_params)
+        # render plain: "page thread! for #{@project.topics.inspect}"
+        redirect_to user_project_path(user_id: params[:user_id], id: params[:project_id])
+    end 
+
+    def show_topic
+        @project = Project.find(params[:project_id])
+        @user = User.find_by(session[:id].to_s)
+        @topic = Topic.find(params[:topic_id])
+        # @messages = Message.find(@topic.id)
+        render "thread_show"
+    end
+
+    
+    def edit_topic
+        @project = Project.find(params[:project_id])
+        @topic = Topic.find(params[:topic_id])
+        render 'thread_edit'
+    end
+    
+    def update_topic
+        @topic = Topic.find(params[:topic_id])
+        @project = Project.find(params[:project_id])
+        @topic.title = topic_params['title']
+        @topic.save
+        flash[:success] = "thread updated successfully!!"
+        redirect_to user_project_path(user_id: @project.user_id,  id: params[:project_id])
+    end
+    
+    def delete_topic
+        @topic = Topic.find(params[:topic_id])
+        @project = Project.find(params[:project_id])
+        flash[:info] = "thread: #{@topic.title}, was deleted!"
+        @topic.destroy
+        redirect_to user_project_path(user_id: @project.user_id,  id: params[:project_id]) 
+    end
+
+    def new_message
+        @topic = Topic.find(params[:topic_id])
+        @user = User.find(session[:id])
+        @message = @topic.messages.create(message_params.merge({"user_id" => @user.id}))
+        # render plain: "post creator #{message_params}, #{@topic.title}, #{@user.id}"
+        render plain: "#{@message.inspect}"
+    end
     private
         def project_params
-            params.require(:project).permit(:title, :body, :attachments)
+            params.require(:project).permit(:title, :body, attachments: [])
         end
+
+        def topic_params
+            params.require(:topic).permit(:title)
+        end
+
+        def message_params
+            params.require(:message).permit(:message)
+        end
+
+        
 
 end
