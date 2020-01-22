@@ -15,10 +15,6 @@
     background-color: slateblue;
 }
 
-.action {
-    position: absolute;
-    bottom: 5px;
-}
 
 .attachments{
     // display: flex;
@@ -34,42 +30,29 @@
 
 .container {
     display: flex; /* or inline-flex */
-  }
+}
 
 .project-container{
-    max-width: 95%;
+    max-width: 100%;
     display: flex;
-    margin: 40px auto; 
+    margin: 40px 20px; 
+    height: 90vh;
+    // width: map-remove($map: , $keys: );
+    // background-color: yellowgreen;
+    // padding-left: 10px 30px;
+    // overflow: auto;
 }  
 
 .project{
     flex: 2;
-    // order: 2;
-    // background-color: burlywood;
     padding: 10px;
     border: 1px;
     border-style: solid;
     border-color: rgba(0,0,0,0.2);
-}
-
-// .files{
-//     display: flex;
-//     flex-direction: column;
-//     flex: 1;
-// }
-.images{
-    flex: 1;
-    border: 1px;
-    border-style: solid;
-    border-color: rgba(0,0,0,0.2);
-    // background-color: cornflowerblue;
-    // display: flex;
-}
-
-.centered-button{
-    // justify-content: center;
-    // background-color: darkviolet;
-    margin: auto;
+    overflow: auto;
+    border-radius: 10px;
+    margin: 10px;
+    font-family: sans-serif
 }
 
 .files{
@@ -77,28 +60,68 @@
     border: 1px;
     border-style: solid;
     border-color: rgba(0,0,0,0.2);
-    // background-color: darksalmon;
+    border-radius: 10px;
+    background-color: darksalmon;
 }
 
+.images{
+        flex: 1;
+        border: 1px;
+        border-style: solid;
+        border-color: rgba(0,0,0,0.2);
+        overflow: auto;
+        background-color: red;
+        
+    }
+    
+    .centered-button{
+        // justify-content: center;
+        // background-color: darkviolet;
+        margin: auto;
+    }
+    
+    
 .c{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    width: 85%;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        width: 85%;
+        height: 80vh;
+        max-width: 100%;
+        margin: 70px auto;
+        justify-content: space-around;
+        overflow: auto;
+        background-color: white;
+        position: relative;
+        border-radius: 10px;
+        box-shadow: 0px 4px 7px rgba(0,0,0,0.3);
+        align-items: center;
+    }
+    
+.project-card{
+    width: 300px;
+    height: 230px;
     max-width: 100%;
-    margin: 40px auto;
-    // background-color: springgreen;
-    justify-content: space-evenly;
-    background-color: springgreen;
+    padding: 10px;
+    margin: 15px 0;
+    border-radius: 10px;
+    position: relative;
+    box-shadow: 0px 4px 7px rgba(0,0,0,0.3);
+    
 }
-
 .action{
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     .card-link {
         margin: 0 5px;
     }
+    a{margin: 0 10px;}
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    // background-color: crimson;
 }
+
 
 .file{
     display: flex;
@@ -133,13 +156,13 @@
     max-width: 95%;
     display: flex;
     margin: 40px auto;
-    background-color: rgba(13, 76, 170, 0.514);
+    // background-color: rgba(13, 76, 170, 0.514);
 }
 
 .thread-project{
     flex: 2;
     // order: 2;
-    background-color: cornsilk;
+    // background-color: cornsilk;
     padding: 10px;
     border: 1px;
     border-style: solid;
@@ -156,10 +179,11 @@
     border: 1px;
     border-style: solid;
     border-color: rgba(0,0,0,0.2);
-    background-color: rgba(13, 76, 170, 0.514);
+    // background-color: rgba(13, 76, 170, 0.514);
     // background-color: red;
     height: 90vh;
     overflow: auto;
+    border-radius: 10px;
 }
 
 .topic-thread{
@@ -169,7 +193,7 @@
     margin-top: 10px;
     display: flex;
     flex-direction: column;
-    background-color: rgba(13, 76, 170, 0.514);
+    // background-color: rgba(13, 76, 170, 0.514);
 }
 
 .heading{
@@ -178,15 +202,15 @@
     border-style: solid;
     border-color: rgba(0,0,0,0.2);
     border-radius: 10px;
-    background-color: cornsilk;
+    // background-color: cornsilk;
 }
 
 .comments-head{
     text-align: center;
     border: 1px;
     border-style: solid;
-    border-color: rgb(37, 4, 37);
-    background-color: cornsilk;
+    border-color: rgb(65, 63, 65);
+    // background-color: cornsilk;
     border-radius: 10px;
     margin-top: 10px;
 }
@@ -199,7 +223,9 @@
     border-radius: 10px;
     border-color: rgba(37, 1, 48, 0.2);
     margin: 5px;
-    background-color: cornsilk;
+    // background-color: cornsilk;
+    word-break: break-word;
     font-family: Georgia, 'Times New Roman', Times, serif;
+    padding: 5px;
 
 }

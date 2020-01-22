@@ -16,3 +16,7 @@
 .shadow{
     box-shadow: 0 4px 7px 0 rgba(6, 23, 46, 9.555);
 }
+
+body{
+    background-color: #eee;
+}
