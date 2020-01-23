@@ -1,0 +1,17 @@
+<div class="message-container">
+    <div class = "message-edit">
+        <div class="message-edit-form">
+            <%= form_with scope: :message, url: "/projects/#{params[:project_id]}/topic/#{params[:topic_id]}/messages/#{params[:message_id]}",  method: :put, local: true do |form| %>
+                    <p>
+                        <h4><%= form.label :Edit_comment %></h4> 
+                        <%= form.text_area :message, :rows => 5, :class => "form-control" %>
+                    </p>
+                    <p>
+                        <%= form.submit "update", :class => "btn, btn-primary"%>
+                    </p>
+            <% end %>
+        </div>
+    </div>
+</div>
+
+

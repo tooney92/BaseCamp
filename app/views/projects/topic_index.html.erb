@@ -1,0 +1,33 @@
+
+<% flash.each do |type, msg| %>
+<% if type == "error" %>
+    <div class="alert alert-danger"><%= msg %> </div>
+<% elsif type == "success" %>
+    <div class= "alert alert-success"><%= msg %> </div>
+<% elsif type == "info" %>
+    <div class= "alert alert-danger"><%= msg %> </div>
+<% end %>
+<% end %>
+
+<div>
+<div class = "c"> 
+    <% @topics.each do |topic| %>  
+        <div class="project-card">
+            <h5 class="card-title"><p>Thread: <%= topic.title %> </p></h5>
+            <h6 class="card-subtitle mb-2 text-muted"><p> Created on: <%= topic.created_at %></p></h6>
+            <p class="card-text"><%= topic.title.length > 80 ? topic.title[0..77] + '...' : topic.title %></p>
+            <div class="action">
+                <%= link_to "/projects/#{@project.id}/topic/#{topic.id}" do %>
+                    <img src="/assets/eye.png">
+                <% end %>
+                <%= link_to "/projects/#{@project.id}/topic/#{topic.id}/edit" do %>
+                    <img src="/assets/edit.png">
+                <% end %>
+                <%= link_to "/projects/#{@project.id}/topic/#{topic.id}", data: {confirm: "Are you sure bout that"}, method: "delete" do %>
+                    <img src="/assets/delete2.png" style= "width: 30px">
+                <% end %>
+            </div>
+        </div>
+    <% end %>
+</div>
+</div>

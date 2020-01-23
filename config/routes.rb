@@ -12,11 +12,14 @@ Rails.application.routes.draw do
     
   end
   get "/projects/:project_id/topic/:topic_id", :to => 'projects#show_topic', :method => 'get'
-  get "/projects/:project_id/topic/:topic_id/edit", :to => 'projects#edit_topic', :method => 'get'
+  get "/projects/:project_id/topics/index", :to => 'projects#index_topic'
   post "/:user_id/projects/:project_id/topic/new", :to => 'projects#new_topic', :method => 'post'
+  get "/projects/:project_id/topic/:topic_id/edit", :to => 'projects#edit_topic', :method => 'get'
   put "/projects/:project_id/topic/:topic_id", :to => 'projects#update_topic', :method => 'put'
   delete "/projects/:project_id/topic/:topic_id", :to => 'projects#delete_topic', :method => 'delete'
   post "/projects/:project_id/topic/:topic_id/messages/new", :to => 'projects#new_message', :method => 'post'
+  get "/projects/:project_id/topic/:topic_id/messages/:message_id/edit", :to => 'projects#edit_message'
+  put "/projects/:project_id/topic/:topic_id/messages/:message_id", :to => 'projects#update_message', :method => 'put'
   root "users#index"
 end
 

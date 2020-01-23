@@ -118,7 +118,7 @@ class ProjectsController < ApplicationController
         @topic.title = topic_params['title']
         @topic.save
         flash[:success] = "thread updated successfully!!"
-        redirect_to user_project_path(user_id: @project.user_id,  id: params[:project_id])
+        redirect_to "/projects/#{params[:project_id]}/topics/index"
     end
     
     def delete_topic
@@ -126,7 +126,14 @@ class ProjectsController < ApplicationController
         @project = Project.find(params[:project_id])
         flash[:info] = "thread: #{@topic.title}, was deleted!"
         @topic.destroy
-        redirect_to user_project_path(user_id: @project.user_id,  id: params[:project_id]) 
+        redirect_to "/projects/#{params[:project_id]}/topics/index"
+        # render "topic_index"
+    end
+
+    def index_topic
+        @project = Project.find(params[:project_id])
+        @topics = @project.topics
+        render "topic_index"
     end
 
     def new_message
@@ -134,8 +141,21 @@ class ProjectsController < ApplicationController
         @user = User.find(session[:id])
         @message = @topic.messages.create(message_params.merge({"user_id" => @user.id}))
         # render plain: "post creator #{message_params}, #{@topic.title}, #{@user.id}"
-        render plain: "#{@message.inspect}"
+        # render plain: "#{@message.inspect}"
+        redirect_to "/projects/#{params[:project_id]}/topic/#{params[:topic_id]}"
     end
+
+    def edit_message
+        @user = User.find(session[:id])
+        @message = Message.find(params[:message_id])
+        render  "message_edit"
+    end
+
+    def update_message
+        render plain: "updater"
+    end
+
+
     private
         def project_params
             params.require(:project).permit(:title, :body, attachments: [])

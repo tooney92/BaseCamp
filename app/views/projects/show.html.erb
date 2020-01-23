@@ -17,9 +17,47 @@
     <%= link_to "back",  user_projects_path, :class => "btn btn-primary" %>
   </div>
 
-  <div class="files">
-      div
+  <div class="side-view">
+      <div class = "image-head">
+        <br>
+        <h4>Images</h4>
+      </div>
+      <div class="user-images">
+        <div class="well" style="display: flex; flex-flow: row wrap; margin: 5px;" align="center">
+          <% @project.attachments.each do |file| %> 
+            <% if file.image?  %>
+              <div class="images">
+                  <%= image_tag file,:alt => "pic of me", :width => "90px", :height => "90px"%>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
 
+      <div class="user-files">
+          <div class= "file-button">
+            <%= link_to " Go to my files (under construction)", user_projects_path,  :class => "btn btn-primary btn-lg btn-block" %>
+          </div>
+      </div>
+
+
+      <div class="user-create-thread">
+            <%= form_with scope: :topic, url: "/#{@project.user_id}/projects/#{@project.id}/topic/new",  local: true do |form| %>
+              <p>
+                <h4> <%= form.label :New_thread %> </h4>
+                <%= form.text_field :title, :class => "form-control" %>
+              </p>
+
+              <p>
+                <%= form.submit "create", :class => "btn btn-outline-primary" %>
+              </p>
+            <% end %>
+      </div>
+
+      <div class="user-threads">
+          <h4>Thread count: <%= @topics.length %> </h4>
+          <%= link_to "Go to threads", "/projects/#{@project.id}/topics/index", :class => "btn btn-outline-primary" %>
+      </div>
   </div>
 </div>
 <%# <div>

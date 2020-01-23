@@ -1,39 +1,55 @@
 <div class="thread-project-container">
 
     <div class="thread-project">
-        <h2><p>Title: <%= @project.title %></p></h2>
-        <h4>Created: <%= time_ago_in_words(@project.created_at)  %> ago </h4>
-        <p> <%= @project.body %> </p>
+        <div class="thread-project-head">
+            <h2><p>Title: <%= @project.title %></p></h2>
+            <h4>Created: <%= time_ago_in_words(@project.created_at)  %> ago </h4>
+        </div>
+        <div class="thread-project-body">
+            <p> <%= @project.body %> </p>
+        </div>
         <%# <%= link_to "back",  user_projects_path, :class => "btn btn-primary" %> 
     </div>
 
     <div class="thread-section">
         <div class="heading">
-            <h3>Thread: <%= @topic.title %> </h3>
+            <h3> Thread: <%= @topic.title %> </h3>
         </div>
         <div class = "comments-head">
             <h5>Comments</h5>
         </div>
         <div class="topic-thread">
             <% @topic.messages.each do |message| %>
-                <div class="comment">
-                   <p> Comment: <%= message.message %></p> 
-                    by: <%= @user.fullname %>
-                   posted: <%= time_ago_in_words(message.created_at) %> ago
+                <div class="comment-container">
+                    <div class="comment">
+                         <p> Comment: <%= message.message %></p> 
+                         |By: <%= @user.fullname %> |
+                        posted: <%= time_ago_in_words(message.created_at) %> ago | <br>
+                         <%= link_to "/projects/#{@project.id}/topic/#{@topic.id}/messages/#{message.id}/edit" do %>
+                                <img src="/assets/edit.png">
+                            <% end %>|<%= link_to users_path+ "/#{@project.id}/projects/#{@topic.id}", data: {confirm: "Are you sure bout that"}, method: "delete" do %>
+                                <img src="/assets/delete2.png" style= "width: 30px"> <% end %>|
+                         <%# </div> %>
+                    </div>
+                    <%# <div class="comments-buttons">
+                        abc <br>
+                        cde
+                    </div> %>
                 </div>
             <% end %>
         </div>
-         <%= form_with scope: :message, url: "/projects/#{@project.id}/topic/#{@topic.id}/messages/new",  local: true do |form| %>
-            <p>
-                <%# <%= form.label :comment %> 
-                <%= form.text_area :message,:rows => 8, :class => "form-control" %>
-            </p>
-
-            <p>
-                <%= form.submit "post", :class => "btn, btn-primary"%>
-            </p>
-        <% end %>
-
+        <div class="post-form">
+            <%= form_with scope: :message, url: "/projects/#{@project.id}/topic/#{@topic.id}/messages/new",  local: true do |form| %>
+                    <p>
+                        <%# <%= form.label :comment %> 
+                        <%= form.text_area :message,:rows => 5, :class => "form-control" %>
+                    </p>
+                    <p>
+                        <%= form.submit "post", :class => "btn, btn-primary"%>
+                    </p>
+            <% end %>
+        </div>
+       
         <%# <div>
             <h5>comments</h5>
         </div> %>
