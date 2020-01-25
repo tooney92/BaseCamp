@@ -9,62 +9,71 @@
 <% end %>
 
 <div class="project-container">
-
+    <%= link_to user_projects_path do %>
+        <img src="/assets/back.png" style= "width: 50px">
+    <% end %>
   <div class="project">
     <h2><p>Title: <%= @project.title %></p></h2>
-    <h4>Created: <%= time_ago_in_words(@project.created_at)  %> ago </h4>
+    <h4>Created: <%= time_ago_in_words(@project.created_at) %> ago </h4>
     <p> <%= @project.body %> </p>
-    <%= link_to "back",  user_projects_path, :class => "btn btn-primary" %>
+    <%= link_to "back", user_projects_path, :class => "btn btn-primary" %>
   </div>
 
   <div class="side-view">
       <div class = "image-head">
         <br>
-        <h4>Images</h4>
+        <h4>Files</h4>
       </div>
       <div class="user-images">
-        <div class="well" style="display: flex; flex-flow: row wrap; margin: 5px;" align="center">
+        <div class="well" style="display: flex; flex-flow: row wrap; justify-content:space-around; margin: 5px;" align="center">
           <% @project.attachments.each do |file| %> 
-            <% if file.image?  %>
+            <% if file.image? %>
               <div class="images">
-                  <%= image_tag file,:alt => "pic of me", :width => "90px", :height => "90px"%>
+                  <%= image_tag file, :alt => "pic of me", :width => "90px", :height => "90px" %> <br>
+                  <%= link_to "/projects/#{@project.id}/image/#{file.id}", data: { confirm: "Are you sure bout that" }, method: "delete" do %>
+                    <img src="/assets/delete2.png" style= "width: 30px">
+                  <% end %>
               </div>
+            <% else %>
+                  <div class="file">
+                    <img src="/assets/file.svg"> 
+                    <%= link_to "/projects/#{@project.id}/image/#{file.id}", data: { confirm: "Are you sure bout that" }, method: "delete" do %>
+                       <img src="/assets/delete2.png" style= "width: 30px">
+                    <% end %>
+                    <%= link_to rails_blob_path(file, disposition: "attachment") do %>
+                        <img src="/assets/download.png" style= "width: 20px" class = 'download'>
+                    <% end %>
+                    <p><%= file.blob.filename %></p>
+                    
+                  </div>
             <% end %>
           <% end %>
         </div>
-      </div>
-
-      <div class="user-files">
-          <div class= "file-button">
-            <%= link_to " Go to my files (under construction)", user_projects_path,  :class => "btn btn-primary btn-lg btn-block" %>
-          </div>
-      </div>
-
-
-      <div class="user-create-thread">
-            <%= form_with scope: :topic, url: "/#{@project.user_id}/projects/#{@project.id}/topic/new",  local: true do |form| %>
-              <p>
-                <h4> <%= form.label :New_thread %> </h4>
-                <%= form.text_field :title, :class => "form-control" %>
-              </p>
-
-              <p>
-                <%= form.submit "create", :class => "btn btn-outline-primary" %>
-              </p>
-            <% end %>
       </div>
 
       <div class="user-threads">
           <h4>Thread count: <%= @topics.length %> </h4>
           <%= link_to "Go to threads", "/projects/#{@project.id}/topics/index", :class => "btn btn-outline-primary" %>
       </div>
+
+      <div class="add-users">
+        <%= form_with scope: :share_project,  url: user_project_add_user_path(:user_id => params[:user_id], :project_id => @project.id), local: true do |form| %>
+            <p>
+              <h4> <%= form.label :Add_User %> </h4>
+              <%= form.text_field :user_id, :class => "form-control" %>
+            </p>
+
+              <%= form.radio_button :access, "1" %>
+              <%= form.label :read %>|
+
+               <%= form.radio_button :access, "2" %>
+              <%= form.label :read_and_write %>| 
+
+               <%= form.radio_button :access, "3" %>
+              <%= form.label :read_write_delete %>            
+        
+              <%= form.submit "Add", :class => "btn btn-outline-primary" %>
+          <% end %>
+    </div>
   </div>
 </div>
-<%# <div>
-  <P>hello</P>
-</div>
-
-<div>
-
-</div> %>
-

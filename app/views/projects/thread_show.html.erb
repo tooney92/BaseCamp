@@ -1,16 +1,18 @@
+<% flash.each do |type, msg| %>
+    <% if type == "danger" %>
+        <div class="alert alert-danger"><%= msg %> </div>
+    <% elsif type == "success" %>
+        <div class= "alert alert-success"><%= msg %> </div>
+    <% elsif type == "info" %>
+        <div class= "alert alert-danger"><%= msg %> </div>
+    <% end %>
+<% end %>
+
 <div class="thread-project-container">
-
-    <div class="thread-project">
-        <div class="thread-project-head">
-            <h2><p>Title: <%= @project.title %></p></h2>
-            <h4>Created: <%= time_ago_in_words(@project.created_at)  %> ago </h4>
-        </div>
-        <div class="thread-project-body">
-            <p> <%= @project.body %> </p>
-        </div>
-        <%# <%= link_to "back",  user_projects_path, :class => "btn btn-primary" %> 
-    </div>
-
+    <%= link_to "/projects/#{params[:project_id]}/topics/index" do %>
+    
+        <img src="/assets/back.png" style= "width: 30px">
+    <% end %>
     <div class="thread-section">
         <div class="heading">
             <h3> Thread: <%= @topic.title %> </h3>
@@ -22,12 +24,12 @@
             <% @topic.messages.each do |message| %>
                 <div class="comment-container">
                     <div class="comment">
-                         <p> Comment: <%= message.message %></p> 
+                         <p> <strong>Comment:</strong> <%= message.message %></p> 
                          |By: <%= @user.fullname %> |
                         posted: <%= time_ago_in_words(message.created_at) %> ago | <br>
                          <%= link_to "/projects/#{@project.id}/topic/#{@topic.id}/messages/#{message.id}/edit" do %>
                                 <img src="/assets/edit.png">
-                            <% end %>|<%= link_to users_path+ "/#{@project.id}/projects/#{@topic.id}", data: {confirm: "Are you sure bout that"}, method: "delete" do %>
+                            <% end %>|<%= link_to "/projects/#{@project.id}/topic/#{@topic.id}/messages/#{message.id}", data: {confirm: "Are you sure bout that"}, method: "delete" do %>
                                 <img src="/assets/delete2.png" style= "width: 30px"> <% end %>|
                          <%# </div> %>
                     </div>
@@ -41,11 +43,10 @@
         <div class="post-form">
             <%= form_with scope: :message, url: "/projects/#{@project.id}/topic/#{@topic.id}/messages/new",  local: true do |form| %>
                     <p>
-                        <%# <%= form.label :comment %> 
                         <%= form.text_area :message,:rows => 5, :class => "form-control" %>
                     </p>
                     <p>
-                        <%= form.submit "post", :class => "btn, btn-primary"%>
+                        <%= form.submit "post", :class => "btn, btn-primary" %>
                     </p>
             <% end %>
         </div>

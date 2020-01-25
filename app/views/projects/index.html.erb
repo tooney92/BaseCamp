@@ -17,6 +17,9 @@
                 <h6 class="card-subtitle mb-2 text-muted"><p> Created on: <%= project.created_at %></p></h6>
                 <p class="card-text"><%= project.body.length > 80 ? project.body[0..77] + '...' : project.body %></p>
                 <div class="action">
+                    <%= link_to  user_project_add_users_index_path(:project_id => project.id) do %>
+                        <img src="/assets/users.png" style= "width: 30px">
+                    <% end %>
                     <%= link_to users_path+"/#{project.user_id}/projects/#{project.id}" do %>
                         <img src="/assets/eye.png">
                     <% end %>
@@ -31,3 +34,4 @@
         <% end %>
     </div>
 </div>
+<%# <%= link_to "back", dashboard_users_path, :class => "btn btn-primary"%> 

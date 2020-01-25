@@ -8,7 +8,10 @@ Rails.application.routes.draw do
     get "dashboard" => 'users#dashboard', :on => :collection 
     get "profile" => 'users#profile', :on => :collection
     get "allusers" => 'users#allusers', :on => :collection
-    resources :projects
+    resources :projects do
+      get "add_users/index", :to => 'projects#myusers_project'
+      post "add_user", :to => 'projects#add_user'
+    end
     
   end
   get "/projects/:project_id/topic/:topic_id", :to => 'projects#show_topic', :method => 'get'
@@ -17,9 +20,12 @@ Rails.application.routes.draw do
   get "/projects/:project_id/topic/:topic_id/edit", :to => 'projects#edit_topic', :method => 'get'
   put "/projects/:project_id/topic/:topic_id", :to => 'projects#update_topic', :method => 'put'
   delete "/projects/:project_id/topic/:topic_id", :to => 'projects#delete_topic', :method => 'delete'
+  delete "/projects/:project_id/image/:image_id", :to => 'projects#delete_image', :method => 'delete'
   post "/projects/:project_id/topic/:topic_id/messages/new", :to => 'projects#new_message', :method => 'post'
   get "/projects/:project_id/topic/:topic_id/messages/:message_id/edit", :to => 'projects#edit_message'
   put "/projects/:project_id/topic/:topic_id/messages/:message_id", :to => 'projects#update_message', :method => 'put'
+  delete "/projects/:project_id/topic/:topic_id/messages/:message_id", :to => 'projects#delete_message', :method => 'delete'
+  
   root "users#index"
 end
 

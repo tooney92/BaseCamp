@@ -1,18 +1,18 @@
 
 
 
-
-<div class="card ml-5" style="width: 22rem;" >
-  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRlWkkJDRgqwZriGSI4R0ntWMI9Scm31zIQGYJo5ZpeDHSC4MW3" width="40px" alt="profile-img"" class="card-img-top" alt="...">
- 
-  <ul class="list-group list-group-flush">
-    <li class="list-group-item"><p>Full name: <%= @user.fullname %> </p></li>
-    <li class="list-group-item"><p>Email: <%= @user.email %></li>
-    <li class="list-group-item"><p>Admin Status: <%= @user.role %></p></li>
-  </ul>
-  <div class="card-body">
-    <%= link_to "back to dashboard", dashboard_users_path, :class => "btn btn-primary" %>
-    <%# <%= link_to "edit", %> 
+<div class="profile-card">
+  <div class="p-card" >
+    <!-- <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRlWkkJDRgqwZriGSI4R0ntWMI9Scm31zIQGYJo5ZpeDHSC4MW3" width="40px" alt="profile-img"" class="card-img-top" alt="..."> -->
+  
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item"><p>Full name: <%= @user.fullname %> </p></li>
+      <li class="list-group-item"><p>Email: <%= @user.email %></li>
+      <li class="list-group-item"><p>Admin Status: <%= @user.role %></p></li>
+    </ul>
+    <div class="card-body">
+      <%= link_to "back to dashboard", dashboard_users_path, :class => "btn btn-primary" %>
+    </div>
   </div>
 </div>
 

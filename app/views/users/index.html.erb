@@ -1,6 +1,59 @@
 
-<div class = "container">
-    <div class="jumbotron bg-dark mt-4 ml-6">
+<div class = "index-container">
+
+    <div class="salutation">
+        <div class="salutation-body">
+            <h1 class="display-4">MyBaseCamp</h1>
+            <p class="lead">ready to collaborate, create, share, read and safely save your projects?  then welcome to your one stop project managment site!</p>
+            <hr class="my-4">
+            <p>So what are you waiting for? </p>
+        </div>
+    </div>
+
+    <div class="index-side-view">
+
+        <div class="index-sign-up">
+            <% if @user != nil and @user.errors.any? %>
+                    <% @user.errors.full_messages.each do |msg| %>
+                        <div class="alert alert-danger"><%= msg %></div>
+                    <% end %>
+            <% end %>
+
+            <%= form_with scope: :user, url: users_path,  local: true do |form| %>
+                <p>
+                    <strong><%= form.label :Full_name %></strong><br>
+                    <%= form.text_field :fullname, :class => "form-control" %>
+                </p>
+                
+                <p>
+                    <strong><%= form.label :email %></strong><br>
+                    <%= form.email_field :email, :class => "form-control"%>
+                </p>
+                
+                <p>
+                    <strong><%= form.label :password %></strong><br>
+                    <%= form.password_field :password, :class => "form-control" %>
+                </p>  
+
+                <p>
+                    <strong><%= form.label :confirm_password %></strong><br>
+                    <%= form.password_field :confirm_password, :class => "form-control" %>
+                </p>
+
+                <p>
+                    <% if logged_in? %>
+                        <small id="emailHelp" class="form-text text-muted">if you are reading this you are already logged in</small>
+                    <% else %>
+                        <%= form.submit "Sign Up", :class => "btn, btn-primary"%>
+                    </p> already have an account? <%= link_to "log in", login_users_path, :class => "btn btn-outline-primary" %> </p>
+                    <% end %>
+            
+                </p>
+            <% end %>
+        </div>
+
+    </div>
+    <!-- <div class="jumbotron bg-dark mt-4 ml-6">
     </div>
     <div class="jumbotron">
     <h1 class="display-4">MyBaseCamp</h1>
@@ -13,6 +66,7 @@
     <% else %>
         <%= link_to "sign up", new_user_path,  :class => "btn btn-primary btn-lg" %>
     <% end %>
-    </div>
+    </div> -->
+    
 
 </div>

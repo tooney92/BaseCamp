@@ -6,7 +6,7 @@ class ProjectsController < ApplicationController
 
     def index
         @user = User.find_by_id(session[:id])
-        @projects = @user.projects
+        @projects = @user.projects.order("created_at DESC")
     end
 
     def create
@@ -40,8 +40,10 @@ class ProjectsController < ApplicationController
     def show
         # render plain: "i am projects view"
         # render 'show'
+        # @shared_project = SharedProject.new
         @project = Project.find_by_id(params[:id])
         @topics = @project.topics
+
         # render plain: @topics.inspect
         # @comments = @topics.map do |topic|
         #     topic.comments
@@ -94,7 +96,7 @@ class ProjectsController < ApplicationController
         @project = Project.find(params[:project_id])
         @project.topics.create(topic_params)
         # render plain: "page thread! for #{@project.topics.inspect}"
-        redirect_to user_project_path(user_id: params[:user_id], id: params[:project_id])
+        redirect_to "/projects/#{params[:project_id]}/topics/index"
     end 
 
     def show_topic
@@ -132,7 +134,8 @@ class ProjectsController < ApplicationController
 
     def index_topic
         @project = Project.find(params[:project_id])
-        @topics = @project.topics
+        @topics = @project.topics.order("created_at DESC")
+        # render plain: @project.inspect
         render "topic_index"
     end
 
@@ -152,9 +155,45 @@ class ProjectsController < ApplicationController
     end
 
     def update_message
-        render plain: "updater"
+        @message = Message.find(params[:message_id])
+        @message.message = message_params[:message]
+        @message.save
+        flash[:success] = "comment updated successfully!!"
+        redirect_to "/projects/#{params[:project_id]}/topic/#{params[:topic_id]}"
     end
 
+    def delete_message
+        @message = Message.find(params[:message_id])
+        @message.destroy
+        flash[:danger] = "Comment deleted successfully!!"
+        redirect_to "/projects/#{params[:project_id]}/topic/#{params[:topic_id]}"
+    end
+
+    def delete_image
+        @image = ActiveStorage::Attachment.find(params[:image_id])
+        @image.purge
+        redirect_to user_project_path(user_id: session[:id], id: params[:project_id])
+    end
+
+    def file_index
+        render plain: "file view"
+    end
+
+    def add_user
+        @shared_project = SharedProject.new(share_project_params)
+        @shared_project.project_id = params[:project_id]
+        @shared_project.save
+        render plain: "handlinf adding user #{@shared_project.inspect}, #{share_project_params.inspect}"
+
+    end
+
+    def shared_projects
+        
+    end
+
+    def myusers_project
+        render "my_users"
+    end
 
     private
         def project_params
@@ -167,6 +206,11 @@ class ProjectsController < ApplicationController
 
         def message_params
             params.require(:message).permit(:message)
+        end
+
+
+        def share_project_params
+            params.require(:share_project).permit(:user_id, :access)
         end
 
         

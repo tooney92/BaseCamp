@@ -102,6 +102,9 @@ class UsersController < ApplicationController
         redirect_to allusers_users_path
     end
 
+    # def show
+        
+    # end
 
     private
         def user_params

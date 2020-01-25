@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_21_173051) do
+ActiveRecord::Schema.define(version: 2020_01_25_122719) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -53,6 +53,19 @@ ActiveRecord::Schema.define(version: 2020_01_21_173051) do
     t.index ["user_id"], name: "index_projects_on_user_id"
   end
 
+  create_table "shared_projects", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "project_id", null: false
+    t.boolean "read"
+    t.boolean "write"
+    t.boolean "update"
+    t.boolean "delete"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["project_id"], name: "index_shared_projects_on_project_id"
+    t.index ["user_id"], name: "index_shared_projects_on_user_id"
+  end
+
   create_table "topics", force: :cascade do |t|
     t.string "title"
     t.integer "project_id"
@@ -74,4 +87,6 @@ ActiveRecord::Schema.define(version: 2020_01_21_173051) do
   add_foreign_key "messages", "topics"
   add_foreign_key "messages", "users"
   add_foreign_key "projects", "users"
+  add_foreign_key "shared_projects", "projects"
+  add_foreign_key "shared_projects", "users"
 end
