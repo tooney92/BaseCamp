@@ -180,11 +180,15 @@ class ProjectsController < ApplicationController
     end
 
     def add_user
-        @shared_project = SharedProject.new(share_project_params)
-        @shared_project.project_id = params[:project_id]
-        @shared_project.save
-        render plain: "handlinf adding user #{@shared_project.inspect}, #{share_project_params.inspect}"
-
+        @user = User.find_by_email(share_project_params['user_id'])
+        @shared_project = SharedProject.new(share_project_params) 
+        @shared_project.user_id = @user.id
+        
+        if @shared_project.save 
+            render plain: "handlinf adding user YESSS"
+        else
+            render plain: "not saved, #{share_project_params.inspect}"
+        end
     end
 
     def shared_projects
@@ -192,7 +196,8 @@ class ProjectsController < ApplicationController
     end
 
     def myusers_project
-        render "my_users"
+        @shared_users = SharedProject.where(project_id: params[:project_id])
+        render 'my_users'
     end
 
     private
@@ -210,7 +215,7 @@ class ProjectsController < ApplicationController
 
 
         def share_project_params
-            params.require(:share_project).permit(:user_id, :access)
+            params.require(:share_project).permit(:user_id, :read, :write, :modify, :trash, :project_id)
         end
 
         

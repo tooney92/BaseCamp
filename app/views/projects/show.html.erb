@@ -13,6 +13,7 @@
         <img src="/assets/back.png" style= "width: 50px">
     <% end %>
   <div class="project">
+ 
     <h2><p>Title: <%= @project.title %></p></h2>
     <h4>Created: <%= time_ago_in_words(@project.created_at) %> ago </h4>
     <p> <%= @project.body %> </p>
@@ -63,17 +64,26 @@
               <%= form.text_field :user_id, :class => "form-control" %>
             </p>
 
-              <%= form.radio_button :access, "1" %>
-              <%= form.label :read %>|
+            <%= form.check_box :read  %>
+            <%= form.label :read %>|
 
-               <%= form.radio_button :access, "2" %>
-              <%= form.label :read_and_write %>| 
+            <%= form.check_box :write  %>
+            <%= form.label :write %>| 
 
-               <%= form.radio_button :access, "3" %>
-              <%= form.label :read_write_delete %>            
+            <%= form.check_box :modify  %>
+            <%= form.label :update %>
+
+            <%= form.check_box :trash  %>
+            <%= form.label :delete %>   
+
+            <%= form.hidden_field :project_id, value: params[:id] %>
+    
+            
+            
         
               <%= form.submit "Add", :class => "btn btn-outline-primary" %>
           <% end %>
     </div>
   </div>
 </div>
+            
