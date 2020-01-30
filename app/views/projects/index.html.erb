@@ -9,14 +9,20 @@
     <% end %>
 <% end %>
 
-<div>
-    <div class = "c"> 
+<div class = "container" style = "justify-content: center">
+    <div class = "row"> 
         <% @projects.each do |project| %>  
-            <div class="project-card">
+            <div class="project-card" style = "margin:10px;">
                 <h5 class="card-title"><p>Title: <%= project.title %> </p></h5>
-                <h6 class="card-subtitle mb-2 text-muted"><p> Created on: <%= project.created_at %></p></h6>
+                <h6 class="card-subtitle mb-2 text-muted"><p> Created: <%= time_ago_in_words(project.created_at) %></p></h6>
                 <p class="card-text"><%= project.body.length > 80 ? project.body[0..77] + '...' : project.body %></p>
                 <div class="action">
+                    <%= link_to  user_project_add_task_index_path(:project_id => project.id) do %>
+                        <img src="/assets/tasks.png" style= "width: 30px">
+                    <% end %>
+                    <%= link_to "/users/#{session[:id]}/projects/#{project.id}/add_task" do %>
+                        <img src="/assets/add.png" style= "width: 30px">
+                    <% end %>
                     <%= link_to  user_project_add_users_index_path(:project_id => project.id) do %>
                         <img src="/assets/users.png" style= "width: 30px">
                     <% end %>

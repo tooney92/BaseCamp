@@ -473,7 +473,41 @@
     // flex: 1;
 }
 
+.padded{
+    padding-top: 9px;
+    padding-left: 7px;
+    box-sizing: border-box;
+}
 
+.hello{
+    font-size: xx-large;
+    text-align: -webkit-center;
+}
+
+.row-span{
+    width: 100%;
+    margin: 0 auto;
+}
+
+.col-span{
+    padding: 0
+}
+
+.sub-head{
+    box-shadow: 0px 1px 3px 0px #495057;
+    border-radius: 10px;
+    text-align: center;
+}
+.priv{
+    background-color: whitesmoke;
+    border-radius: 10px;
+    margin: 10px auto;
+    box-shadow: 10px 4px 7px rgba(0, 0, 0, 0.418);
+}
+
+.card-span{
+    margin: 0 auto;
+}
 @media only screen and (min-width: 720px){
     .project-container{
         flex-direction: row;

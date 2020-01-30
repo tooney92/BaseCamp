@@ -8,9 +8,18 @@ Rails.application.routes.draw do
     get "dashboard" => 'users#dashboard', :on => :collection 
     get "profile" => 'users#profile', :on => :collection
     get "allusers" => 'users#allusers', :on => :collection
+    get "/shared_projects" => 'projects#shared_projects', :on => :collection
     resources :projects do
       get "add_users/index", :to => 'projects#myusers_project'
       post "add_user", :to => 'projects#add_user'
+      delete "delete_user", :to => 'projects#destroy_user'
+      get "add_task", :to => 'projects#mytasks_project'
+      post "add_task/new", :to => 'projects#addtasks_project'
+      get "add_task/index", :to => 'projects#alltasks_project'
+      get "edit_task/:task_id", :to => 'projects#edit_task'
+      put "edit_task/:task_id", :to => 'projects#update_task'
+      delete "delete_task/:task_id", :to => 'projects#destroy_task'
+
     end
     
   end
@@ -25,6 +34,11 @@ Rails.application.routes.draw do
   get "/projects/:project_id/topic/:topic_id/messages/:message_id/edit", :to => 'projects#edit_message'
   put "/projects/:project_id/topic/:topic_id/messages/:message_id", :to => 'projects#update_message', :method => 'put'
   delete "/projects/:project_id/topic/:topic_id/messages/:message_id", :to => 'projects#delete_message', :method => 'delete'
+  get "/projects/:project_id/add_user/:add_user_id/change_privilege/edit", :to => 'projects#edit_privilege'
+  put "/projects/:project_id/add_user/:add_user_id/change_privilege", :to => 'projects#update_privilege', :method => 'put'
+  delete "/projects/remove_user/:add_user_id/destroy", :to => 'projects#destroy_user', :method => 'delete'
+ 
+  
   
   root "users#index"
 end

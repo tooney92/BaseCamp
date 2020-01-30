@@ -1,0 +1,31 @@
+<% flash.each do |type, msg| %>
+    <% if type == "error" %>
+        <div class="alert alert-danger"><%= msg %> </div>
+    <% elsif type == "success" %>
+        <div class= "alert alert-success"><%= msg %> </div>
+    <% elsif type == "info" %>
+        <div class= "alert alert-danger"><%= msg %> </div>
+    <% end %>
+<% end %>
+
+<div class="container mt-5" >	
+    <div class="col-md-9 pt-5 pb-5" style = "box-shadow: 5px 6px 11px 2px darkslategrey; border-radius: 10px">
+        <h3 class = 'hello'> Edit Task  </h3>
+        <div class="row row-span">
+            <div class="col-sm-6 col-span card-span">
+                <div class="card">
+                    <%= form_with scope: :task, url:  request.fullpath,  method: :put, local: true  do |form| %>
+                        <p>
+                            <h2> Task: <%= @task.task %> </h2>
+                            <%= form.text_field :task, :class => "form-control" %>
+                        </p>
+                        <br>
+                        <p>
+                            <%= form.submit "update", :class => "btn, btn-primary"%>
+                        </p>
+                    <% end %>
+                </div>
+            </div>
+        </div>
+    </div>
+</div

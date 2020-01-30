@@ -9,8 +9,14 @@
 <% end %>
 
 <div class="project-container">
-    <%= link_to user_projects_path do %>
-        <img src="/assets/back.png" style= "width: 50px">
+    <% if session[:id] == @project.user_id %>
+      <%= link_to user_projects_path do %>
+          <img src="/assets/back.png" style= "width: 50px">
+      <% end %>
+    <% else %>
+      <%= link_to users_path + "/shared_projects" do %>
+          <img src="/assets/back.png" style= "width: 50px">
+      <% end %>
     <% end %>
   <div class="project">
  
@@ -31,18 +37,22 @@
             <% if file.image? %>
               <div class="images">
                   <%= image_tag file, :alt => "pic of me", :width => "90px", :height => "90px" %> <br>
-                  <%= link_to "/projects/#{@project.id}/image/#{file.id}", data: { confirm: "Are you sure bout that" }, method: "delete" do %>
-                    <img src="/assets/delete2.png" style= "width: 30px">
-                  <% end %>
+                  <% if session[:id] == @project.user_id %>
+                    <%= link_to "/projects/#{@project.id}/image/#{file.id}", data: { confirm: "Are you sure bout that" }, method: "delete" do %>
+                      <img src="/assets/delete2.png" style= "width: 30px">
+                    <% end %>
+                  <% end  %>
               </div>
             <% else %>
                   <div class="file">
                     <img src="/assets/file.svg"> 
-                    <%= link_to "/projects/#{@project.id}/image/#{file.id}", data: { confirm: "Are you sure bout that" }, method: "delete" do %>
-                       <img src="/assets/delete2.png" style= "width: 30px">
-                    <% end %>
-                    <%= link_to rails_blob_path(file, disposition: "attachment") do %>
-                        <img src="/assets/download.png" style= "width: 20px" class = 'download'>
+                    <% if session[:id] == @project.user_id %>
+                      <%= link_to "/projects/#{@project.id}/image/#{file.id}", data: { confirm: "Are you sure bout that" }, method: "delete" do %>
+                        <img src="/assets/delete2.png" style= "width: 30px">
+                      <% end %>
+                      <%= link_to rails_blob_path(file, disposition: "attachment") do %>
+                          <img src="/assets/download.png" style= "width: 20px" class = 'download'>
+                      <% end %>
                     <% end %>
                     <p><%= file.blob.filename %></p>
                     
@@ -56,34 +66,35 @@
           <h4>Thread count: <%= @topics.length %> </h4>
           <%= link_to "Go to threads", "/projects/#{@project.id}/topics/index", :class => "btn btn-outline-primary" %>
       </div>
+      <% if session[:id] == @project.user_id %>
+          <div class="add-users">
+            <%= form_with scope: :share_project,  url: user_project_add_user_path(:user_id => params[:user_id], :project_id => @project.id), local: true do |form| %>
+                <p>
+                  <h4> <%= form.label :Add_User %> </h4>
+                  <%= form.text_field :user_id, :class => "form-control" %>
+                </p>
 
-      <div class="add-users">
-        <%= form_with scope: :share_project,  url: user_project_add_user_path(:user_id => params[:user_id], :project_id => @project.id), local: true do |form| %>
-            <p>
-              <h4> <%= form.label :Add_User %> </h4>
-              <%= form.text_field :user_id, :class => "form-control" %>
-            </p>
+                <%= form.check_box :read  %>
+                <%= form.label :read %>|
 
-            <%= form.check_box :read  %>
-            <%= form.label :read %>|
+                <%= form.check_box :write  %>
+                <%= form.label :write %>| 
 
-            <%= form.check_box :write  %>
-            <%= form.label :write %>| 
+                <%= form.check_box :modify  %>
+                <%= form.label :update %>
 
-            <%= form.check_box :modify  %>
-            <%= form.label :update %>
+                <%= form.check_box :trash  %>
+                <%= form.label :delete %>   
 
-            <%= form.check_box :trash  %>
-            <%= form.label :delete %>   
-
-            <%= form.hidden_field :project_id, value: params[:id] %>
-    
-            
-            
+                <%= form.hidden_field :project_id, value: params[:id] %>
         
-              <%= form.submit "Add", :class => "btn btn-outline-primary" %>
-          <% end %>
-    </div>
+                
+                
+            
+                  <%= form.submit "Add", :class => "btn btn-outline-primary" %>
+              <% end %>
+          </div>
+        <% end  %>
   </div>
 </div>
             

@@ -1,0 +1,48 @@
+
+<% flash.each do |type, msg| %>
+    <% if type == "error" %>
+        <div class="alert alert-danger"><%= msg %> </div>
+    <% elsif type == "success" %>
+        <div class= "alert alert-success"><%= msg %> </div>
+    <% elsif type == "info" %>
+        <div class= "alert alert-danger"><%= msg %> </div>
+    <% end %>
+<% end %>
+
+<div>
+    <div class = "c"> 
+        <% @shared_projects.each do |shared_project| %>  
+            <div class="project-card">
+                <h5 class="card-title"><p>Title: <%= shared_project.project.title %> </p></h5>
+                <h6 class="card-subtitle mb-2 text-muted"><p> added on: <%= shared_project.created_at %></p></h6>
+                <p class="card-text"><%= shared_project.project.body.length > 80 ? shared_project.project.body[0..77] + '...' : shared_project.project.body %></p>
+                <div class="action">
+                    <% if shared_project.read %>
+                        <%= link_to users_path+"/#{shared_project.project.user_id}/projects/#{shared_project.project.id}" do %>
+                            <img src="/assets/eye.png">
+                        <% end %>
+                    <% end  %>
+                    <% if shared_project.modify %>
+                        <%= link_to users_path+"/#{shared_project.project.user_id}/projects/#{shared_project.project.id}/edit" do %>
+                            <img src="/assets/edit.png">
+                        <% end %>
+                    <% end  %>
+                    <% if shared_project.trash %>
+                        <%= link_to users_path+ "/#{shared_project.project.user_id}/projects/#{shared_project.project_id}", data: {confirm: "Are you sure bout that"}, method: "delete" do %>
+                            <img src="/assets/delete2.png" style= "width: 30px">
+                        <% end %>
+                    <% end  %>
+                    <% if shared_project.write and shared_project.modify %>
+                        <%= link_to  "/users/#{shared_project.project.user_id}/projects/#{shared_project.project_id}/add_task/index" do %>
+                            <img src="/assets/tasks.png" style= "width: 30px">
+                        <% end %>
+                        <%= link_to "/users/#{session[:id]}/projects/#{shared_project.project_id}/add_task" do %>
+                            <img src="/assets/add.png" style= "width: 30px">
+                        <% end %>
+                    <% end  %>
+                </div>
+            </div>
+        <% end %>
+    </div>
+</div>
+<%# <%= link_to "back", dashboard_users_path, :class => "btn btn-primary"%> 

@@ -1,17 +1,7 @@
-<h1> new project page </h1>
+<div class = "jumbotron mt-3">
+  <h3> New Project  </h3>
 
 
-<div class = "jumbotron ">
-<!-- 
-    <% if @user != nil and @user.errors.any? %>
-            <% @user.errors.full_messages.each do |msg| %>
-                <div class="alert alert-danger"><%= msg %></div>
-            <% end %>
-    <% end %>
-
-    ASK TUMISE
- -->
-        
     <% flash.each do |type, msg| %>
     <% if type == "error" %>
         <div class="alert alert-danger"><%= msg %> </div>
@@ -26,20 +16,21 @@
     
     <%= form_with scope: :project, url: user_projects_path,  local: true do |form| %>
       <p>
-        <%= form.label :title %><br>
+        <h2> Title </h2>
         <%= form.text_field :title, :class => "form-control" %>
       </p>
      
       <p>
-        <%= form.label :body %><br>
+        <h3> Body </h3>
         <%= form.text_area :body, :class => "form-control"%>
       </p>
      
       <div class="custom-file col-md-6">
         <%= form.label :attachments,  class: "col-md-4 control-label mt-3" %>
-         <%= form.file_field :attachments, :multiple => true  %>
+         <%= form.file_field :attachments, :multiple => true, :class => "form-control" %>
      </div>
-    
+      <br>
+      <br>
       <p>
         <%= form.submit "create", :class => "btn, btn-primary"%>
       </p>
@@ -47,4 +38,4 @@
     <% end %>
     
     
-    </div>
+</div>

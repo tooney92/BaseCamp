@@ -35,4 +35,23 @@ class ApplicationController < ActionController::Base
             @user = User.find_by(userid: session[:userid])
         end
     end
+
+    def check_authority
+        @project = Project.find(params[:id])
+        @shared_project = SharedProject.where("user_id = :user_id and project_id = :project_id", {project_id: params[:id], user_id: session[:id]} )
+
+        if session[:id] == @project.user_id
+        
+        elsif session[:id] != @project.user_id and @shared_project[0] == nil
+            flash[:alert] = "you do not have the permission to do this!!"
+            redirect_to dashboard_users_path
+
+        elsif session[:id] != @project.user_id and @shared_project[0].read == true
+            # flash[:alert] = "you do not have the permission to do this!!"
+            # redirect_to dashboard_users_path 
+        else
+            flash[:alert] = "you do not have the permission to do this!!"
+            redirect_to dashboard_users_path
+        end
+    end
 end

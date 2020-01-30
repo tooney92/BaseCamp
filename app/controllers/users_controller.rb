@@ -1,7 +1,8 @@
 class UsersController < ApplicationController
     before_action :authorize_login, :only => [:login, :new]
-    before_action :authorize_logout, :only => [:dashboard, :profile, :projects, :create_project, :show, :logout]
-    before_action :admin_check, :only => [:allusers]
+    before_action :admin_check, :only => [:allusers,:make_admin]
+    before_action :authorize_logout, :only => [:dashboard, :profile, :projects, :create_project, :show, :logout, :make_admin, ]
+
 
     def index
     end
@@ -36,7 +37,7 @@ class UsersController < ApplicationController
             session[:userid] = @user[:userid]
             session[:id] = @user[:id]
             session[:fullname] = @user[:fullname]
-
+            flash[:success] = "Welcome #{session[:fullname]}"
             redirect_to dashboard_users_path
 
         else
@@ -60,7 +61,10 @@ class UsersController < ApplicationController
     end
 
     def dashboard
-
+        @projects = Project.where(user_id: session[:id])
+        @shared_projects = SharedProject.where(user_id: session[:id])
+        @tasks = Task.where(user_id: session[:id])
+        # @threads = Topic.where(user_id: session[:id])
     end
 
     def logout

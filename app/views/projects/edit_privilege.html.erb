@@ -1,0 +1,26 @@
+<div class="container priv mt-5">
+    
+    <%= form_with scope: :share_project,  url: "/projects/#{params[:project_id]}/add_user/#{params[:add_user_id]}/change_privilege", local: true, method: :put do |form| %>
+        <p>
+            <h4> User: <%= @username %> </h4>
+        </p>
+
+        <%= form.check_box :read  %>
+        <%= form.label :read %>|
+
+        <%= form.check_box :write  %>
+        <%= form.label :write %>| 
+
+        <%= form.check_box :modify  %>
+        <%= form.label :update %>
+
+        <%= form.check_box :trash  %>
+        <%= form.label :delete %>   
+
+        <%= form.hidden_field :project_id, value: params[:id] %>
+        <br>
+        <br>
+        <%= form.submit "Update", :class => "btn btn-outline-primary" %>
+
+        <% end %>
+</div>

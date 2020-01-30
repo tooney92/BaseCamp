@@ -1,4 +1,12 @@
-
+<% flash.each do |type, msg| %>
+<% if type == "error" %>
+    <div class="alert alert-danger"><%= msg %> </div>
+<% elsif type == "success" %>
+    <div class= "alert alert-success"><%= msg %> </div>
+<% elsif type == "info" %>
+    <div class= "alert alert-danger"><%= msg %> </div>
+<% end %>
+<% end %>
     
 <table class="table table-striped mt-5", style="background-color: rgb(229, 229, 226);">
     <thead>
@@ -10,17 +18,21 @@
         <th scope="col">write</th>
         <th scope="col">update</th>
         <th scope="col">delete</th>
+        <th scope="col">change privilege</th>
+        <th scope="col">remove user</th>
       </tr>
     </thead>
     <tbody>
     <% @shared_users.each do |user| %>
       <tr>
-        <td><%= User.find(user.user_id).fullname %> </td>
+        <td><%= user.user.fullname %> </td>
         <td><%= time_ago_in_words(user.created_at) %> </td>
         <td> <%= user.read %> </td>
         <td> <%= user.write %> </td>
         <td> <%= user.modify %> </td>
         <td> <%= user.trash %> </td>
+        <td><%= link_to "change privelge", "/projects/#{params[:project_id]}/add_user/#{user.id}/change_privilege/edit", :class => 'btn btn-primary' %> </td>
+        <td><%= link_to "remove user", "/projects/remove_user/#{user.id}/destroy", :class => 'btn btn-primary', data: {confirm: "Are you sure bout that"}, method:'delete' %> </td>
       </tr>
     <% end %>
     </tbody>

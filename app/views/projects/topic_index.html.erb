@@ -14,18 +14,20 @@
     <%= link_to users_path+"/#{session[:id]}/projects/#{@project.id}" do %>
         <img src="/assets/back.png" style= "width: 30px">
     <% end %>
-    <div class="user-create-thread">
-        <%= form_with scope: :topic, url: "/#{@project.user_id}/projects/#{@project.id}/topic/new", local: true do |form| %>
-          <p>
-            <h4> <%= form.label :New_thread %> </h4>
-            <%= form.text_field :title, :class => "form-control" %>
-          </p>
+    <% if session[:id] == @project.user_id %>
+        <div class="user-create-thread">
+            <%= form_with scope: :topic, url: "/#{@project.user_id}/projects/#{@project.id}/topic/new", local: true do |form| %>
+            <p>
+                <h4> <%= form.label :New_thread %> </h4>
+                <%= form.text_field :title, :class => "form-control" %>
+            </p>
 
-          <p>
-            <%= form.submit "create", :class => "btn btn-outline-primary" %>
-          </p>
-        <% end %>
-    </div>
+            <p>
+                <%= form.submit "create", :class => "btn btn-outline-primary" %>
+            </p>
+            <% end %>
+        </div>
+    <% end  %>
     <% @topics.each do |topic| %>  
         <div class="project-card">
             <h5 class="card-title"><p>Thread: <%= topic.title %> </p></h5>
@@ -35,12 +37,16 @@
                 <%= link_to "/projects/#{@project.id}/topic/#{topic.id}" do %>
                     <img src="/assets/talk.png">
                 <% end %>
-                <%= link_to "/projects/#{@project.id}/topic/#{topic.id}/edit" do %>
-                    <img src="/assets/edit.png">
-                <% end %>
-                <%= link_to "/projects/#{@project.id}/topic/#{topic.id}", data: {confirm: "Are you sure bout that"}, method: "delete" do %>
-                    <img src="/assets/delete2.png" style= "width: 30px">
-                <% end %>
+                <% if session[:id] == @project.user_id %>
+                    <%= link_to "/projects/#{@project.id}/topic/#{topic.id}/edit" do %>
+                        <img src="/assets/edit.png">
+                    <% end %>
+                <% end  %>
+                <% if session[:id] == @project.user_id %>
+                    <%= link_to "/projects/#{@project.id}/topic/#{topic.id}", data: {confirm: "Are you sure bout that"}, method: "delete" do %>
+                        <img src="/assets/delete2.png" style= "width: 30px">
+                    <% end %>
+                <% end  %>
             </div>
         </div>
     <% end %>

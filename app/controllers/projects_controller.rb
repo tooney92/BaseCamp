@@ -1,4 +1,6 @@
 class ProjectsController < ApplicationController
+    before_action :authorize_logout, :only => [:mytasks_project, :addtasks_project, :update_privilege, :edit_privilege, :myusers_project, :shared_projects, :add_user, :file_index, :delete_image, :delete_message, :edit_message, :new_message, :index_topic, :delete_topic, :update_topic, :edit_topic, :show_topic, :new_topic, :read, :update, :edit, :new, :index, :shared_projects, :create, :projects, :create_project, :show, :destroy, ]
+    before_action :check_authority, :only => [:create, :projects, :create_project, :show, :destroy]
 
     def new
 
@@ -94,9 +96,17 @@ class ProjectsController < ApplicationController
 
     def new_topic
         @project = Project.find(params[:project_id])
-        @project.topics.create(topic_params)
+
+        if topic_params[:title].empty? 
+            flash[:error] = 'Sorry cannot create  blank thread'
+            redirect_to "/projects/#{params[:project_id]}/topics/index"
+        else
+            flash[:success] = 'thread created sucessfully'
+            @project.topics.create(topic_params)
+            redirect_to "/projects/#{params[:project_id]}/topics/index"
+        end
         # render plain: "page thread! for #{@project.topics.inspect}"
-        redirect_to "/projects/#{params[:project_id]}/topics/index"
+        
     end 
 
     def show_topic
@@ -142,10 +152,23 @@ class ProjectsController < ApplicationController
     def new_message
         @topic = Topic.find(params[:topic_id])
         @user = User.find(session[:id])
-        @message = @topic.messages.create(message_params.merge({"user_id" => @user.id}))
+        @message = Message.new(message_params)
+        @message.user_id = session[:id]
+        @message.topic_id = @topic.id
+
+        if message_params[:message].empty?
+            flash[:error] = "cannot add blank comment!"
+            redirect_to "/projects/#{params[:project_id]}/topic/#{params[:topic_id]}"
+        else
+            flash[:success] = "comment added sucessfully!"
+            @message.save
+            redirect_to "/projects/#{params[:project_id]}/topic/#{params[:topic_id]}"
+        end
+        
+        # render plain: @message.inspect
+        # @message = @topic.messages.create(message_params.merge({"user_id" => @user.id}))
         # render plain: "post creator #{message_params}, #{@topic.title}, #{@user.id}"
-        # render plain: "#{@message.inspect}"
-        redirect_to "/projects/#{params[:project_id]}/topic/#{params[:topic_id]}"
+        
     end
 
     def edit_message
@@ -185,19 +208,94 @@ class ProjectsController < ApplicationController
         @shared_project.user_id = @user.id
         
         if @shared_project.save 
-            render plain: "handlinf adding user YESSS"
+            redirect_to "/users/#{session[:id]}/projects/#{params[:project_id]}"
         else
             render plain: "not saved, #{share_project_params.inspect}"
         end
     end
 
     def shared_projects
-        
+        @shared_projects = SharedProject.where(user_id: session[:id])
     end
 
     def myusers_project
         @shared_users = SharedProject.where(project_id: params[:project_id])
         render 'my_users'
+    end
+
+    def edit_privilege
+        @user = SharedProject.find(params[:add_user_id])
+        @username = @user.user.fullname
+        render  'edit_privilege'
+    end
+
+    def update_privilege
+        @added_user = SharedProject.find(params[:add_user_id])
+        @added_user.read = share_project_params[:read]
+        @added_user.write = share_project_params[:write]
+        @added_user.modify = share_project_params[:modify]
+        @added_user.trash = share_project_params[:trash]
+        flash[:success] = "#{@added_user.user.fullname} privelges updated!"
+        @added_user.save
+
+        redirect_to "/users/#{session[:id]}/projects/#{@added_user.project_id}/add_users/index"
+    end
+
+    def destroy_user
+        @added_user = SharedProject.find(params[:add_user_id])
+        @added_user.destroy
+        # render plain: "i am the deleter"
+    end
+
+    def mytasks_project
+        render 'add_task'
+    end
+
+    def addtasks_project
+        @user = User.find(session[:id])
+        @task = Task.new(mytasks_project_params)
+        @task.user_id = session[:id]
+        @task.project_id = params[:project_id]
+        
+        if @task.save
+            flash[:success] = "task added"
+            redirect_to "/users/#{session[:id]}/projects"
+        else    
+            flash[:error] = "cannot add blank task!"
+            redirect_to  "/users/#{session[:id]}/projects/#{params[:project_id]}/add_task"
+        end
+       
+    end
+
+    def alltasks_project
+        @tasks = Task.where(project_id: params[:project_id])
+        render 'index_task'
+        # render plain: @tasks[0].user.fullname
+    end
+
+    def edit_task
+        @task = Task.find(params[:task_id])
+        render 'edit_task'
+    end
+
+    def update_task
+        @task = Task.find(params[:task_id])
+        @task.task = mytasks_project_params[:task]
+        if @task.save
+            flash[:success] = "task added"
+            redirect_to "/users/#{session[:id]}/projects/#{params[:project_id]}/add_task/index"
+        else    
+            flash[:error] = "cannot add blank task!"
+            redirect_to  request.fullpath
+        end
+    end
+
+    def destroy_task
+        @task = Task.find(params[:task_id])
+        @task.destroy
+        flash[:error] = "task deleted!"
+        redirect_to "/users//#{session[:id]}/projects/#{params[:project_id]}/add_task/index"
+        
     end
 
     private
@@ -213,11 +311,13 @@ class ProjectsController < ApplicationController
             params.require(:message).permit(:message)
         end
 
-
         def share_project_params
             params.require(:share_project).permit(:user_id, :read, :write, :modify, :trash, :project_id)
         end
 
+        def mytasks_project_params
+            params.require(:task).permit(:task)
+        end
         
 
 end

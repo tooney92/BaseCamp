@@ -1,5 +1,5 @@
 
-<h1> hello <%= session[:fullname] %> </h1>
+
 <% flash.each do |type, msg| %>
 
 <% if type == 'success' %>
@@ -10,36 +10,43 @@
 
 <% end %>
 
-<div class="container">
-	<div class="row">
-		<div class="col-md-3">
-			<div class="side-dashboard">
-                <%#= link_to "Dashboard", dashboard_users_path, :class => "list-group-item list-group-item-action active" %>
-                <%= link_to "Profile", profile_users_path, :class => "list-group-item list-group-item-action" %>
-                <%= link_to "Projects", "#{current_user.id}/projects", :class => "list-group-item list-group-item-action" %>
-                <%= link_to "New Project", "#{current_user.id}/projects/new", :class => "list-group-item list-group-item-action" %>
-                <%= link_to "Shared Projects", "#{current_user.id}/projects", :class => "list-group-item list-group-item-action" %>
-                <%#= link_to "Projects", projects_users_path, :class => "list-group-item list-group-item-action" %>
-                <%#= link_to "Delete Your Account", users_path + "/destroy", method: :delete, data: {confirm: "Are you sure you want to delete your account?"}, :class => "list-group-item list-group-item-action" %>
-                <%#= link_to "Logout", users_path + "/logout", :class => "list-group-item list-group-item-action" %>
-            </div>
-		</div>
-		<div class="col-md-9">
-			<div class="card ml-5" style="width: 18rem;" >
-                <!-- <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRlWkkJDRgqwZriGSI4R0ntWMI9Scm31zIQGYJo5ZpeDHSC4MW3" width="30px" alt="profile-img"" class="card-img-top" alt="..."> -->
-    
-                <ul class="list-group list-group-flush">
-                <li class="list-group-item"><p>Full name: <%= @user.fullname %> </p></li>
-                <li class="list-group-item"><p>Email: <%= @user.email %></li>
-                <li class="list-group-item"><p>Admin Status: <%= @user.role %></p></li>
-                </ul>
-                <div class="card-body">
-                <%= link_to "back to dashboard", dashboard_users_path, :class => "btn btn-primary" %>
-                <%# <%= link_to "edit", %> 
+
+<div class="container mt-5" >	
+    <div class="col-md-9 pt-5 pb-5" style = "box-shadow: 5px 6px 11px 2px darkslategrey; border-radius: 10px">
+            <h3 class = 'hello'> Hello <%= session[:fullname].capitalize() %> </h3>
+            <%= link_to "My Profile", profile_users_path, :class => "list-group-item list-group-item-action" %>
+        <div class="row row-span">
+            <div class="col-sm-6 col-span">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Projects</h4>
+                        <p class="card-text">Total Projects: <%= @projects.length %> </p>
+                        <%= link_to "My Projects", "#{current_user.id}/projects", :class => "list-group-item list-group-item-action" %>
+                        <%= link_to "New Project", "#{current_user.id}/projects/new", :class => "list-group-item list-group-item-action" %>
+                    </div>
                 </div>
             </div>
-		</div>
-	</div>
+            <div class="col-sm-6 col-span">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Shared Projects</h4>
+                        <p class="card-text">Total Shared Projects: <%= @shared_projects.length %> </p>
+                        <%= link_to " Go to Shared Projects", "/users/shared_projects", :class => "list-group-item list-group-item-action" %>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 mt-2 col-span">
+                <div class="card padded">
+                    <h5 class="card-title"> My total threads:  </h5>
+                </div>
+            </div>
+            <div class="col-sm-6 mt-2 col-span">
+                <div class="card padded">
+                    <h5 class="card-title"> My total tasks: <%= @tasks.length %> </h5>
+                </div>
+            </div>
+        </div>
+    </div>
 </div
 
 
