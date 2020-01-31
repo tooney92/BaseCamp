@@ -11,7 +11,7 @@
 
 <div class="container mt-5" >	
     <%= link_to user_projects_path do %>
-          <img src="/assets/back.png" style= "width: 50px">
+        <img src="https://img.icons8.com/carbon-copy/100/000000/circled-left-2.png" style= "width: 50px">
       <% end %>
     <div class="col-md-9 pt-5 pb-5" style = "box-shadow: 5px 6px 11px 2px darkslategrey; border-radius: 10px">
             <h3 class = 'hello'> Hello <%= session[:fullname].capitalize() %> </h3>
@@ -29,10 +29,10 @@
                                 <br>
                                 <div class = "action">
                                     <%= link_to "/users/#{session[:id]}/projects/#{task.project_id}/edit_task/#{task.id}" do %>
-                                        <img src="/assets/edit.png">
+                                        <img src="https://img.icons8.com/metro/26/000000/edit.png">
                                     <% end %>
                                     <%= link_to  "/users/#{session[:id]}/projects/#{task.project_id}/delete_task/#{task.id}", data: {confirm: "Are you sure bout that"}, method: "delete" do %>
-                                        <img src="/assets/delete2.png" style= "width: 30px">
+                                        <img src="https://img.icons8.com/dusk/64/000000/delete-sign.png" style= "width: 30px">
                                     <% end %>
                                 </div>
                             </div>

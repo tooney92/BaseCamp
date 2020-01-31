@@ -18,22 +18,22 @@
                 <p class="card-text"><%= project.body.length > 80 ? project.body[0..77] + '...' : project.body %></p>
                 <div class="action">
                     <%= link_to  user_project_add_task_index_path(:project_id => project.id) do %>
-                        <img src="/assets/tasks.png" style= "width: 30px">
+                        <img src="https://img.icons8.com/windows/32/000000/task.png" style= "width: 30px">
                     <% end %>
                     <%= link_to "/users/#{session[:id]}/projects/#{project.id}/add_task" do %>
-                        <img src="/assets/add.png" style= "width: 30px">
+                        <img src="https://img.icons8.com/wired/64/000000/add-column.png" style= "width: 30px">
                     <% end %>
                     <%= link_to  user_project_add_users_index_path(:project_id => project.id) do %>
-                        <img src="/assets/users.png" style= "width: 30px">
+                        <img src="https://img.icons8.com/ios-glyphs/30/000000/add-user-group-man-man.png" style= "width: 30px">
                     <% end %>
                     <%= link_to users_path+"/#{project.user_id}/projects/#{project.id}" do %>
-                        <img src="/assets/eye.png">
+                        <img src="https://img.icons8.com/ios-glyphs/30/000000/reading.png">
                     <% end %>
                     <%= link_to users_path+"/#{project.user_id}/projects/#{project.id}/edit" do %>
-                        <img src="/assets/edit.png">
+                        <img src="https://img.icons8.com/metro/26/000000/edit.png">
                     <% end %>
                     <%= link_to users_path+ "/#{project.user_id}/projects/#{project.id}", data: {confirm: "Are you sure bout that"}, method: "delete" do %>
-                        <img src="/assets/delete2.png" style= "width: 30px">
+                        <img src="https://img.icons8.com/dusk/64/000000/delete-sign.png" style= "width: 30px">
                     <% end %>
                 </div>
             </div>

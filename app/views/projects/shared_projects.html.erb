@@ -19,25 +19,25 @@
                 <div class="action">
                     <% if shared_project.read %>
                         <%= link_to users_path+"/#{shared_project.project.user_id}/projects/#{shared_project.project.id}" do %>
-                            <img src="/assets/eye.png">
+                            <img src="https://img.icons8.com/ios-glyphs/30/000000/reading.png">
                         <% end %>
                     <% end  %>
                     <% if shared_project.modify %>
                         <%= link_to users_path+"/#{shared_project.project.user_id}/projects/#{shared_project.project.id}/edit" do %>
-                            <img src="/assets/edit.png">
+                            <img src="https://img.icons8.com/metro/26/000000/edit.png">
                         <% end %>
                     <% end  %>
                     <% if shared_project.trash %>
                         <%= link_to users_path+ "/#{shared_project.project.user_id}/projects/#{shared_project.project_id}", data: {confirm: "Are you sure bout that"}, method: "delete" do %>
-                            <img src="/assets/delete2.png" style= "width: 30px">
+                            <img src="https://img.icons8.com/dusk/64/000000/delete-sign.png" style= "width: 30px">
                         <% end %>
                     <% end  %>
                     <% if shared_project.write and shared_project.modify %>
                         <%= link_to  "/users/#{shared_project.project.user_id}/projects/#{shared_project.project_id}/add_task/index" do %>
-                            <img src="/assets/tasks.png" style= "width: 30px">
+                            <img src="https://img.icons8.com/windows/32/000000/task.png" style= "width: 30px">
                         <% end %>
                         <%= link_to "/users/#{session[:id]}/projects/#{shared_project.project_id}/add_task" do %>
-                            <img src="/assets/add.png" style= "width: 30px">
+                            <img src="https://img.icons8.com/wired/64/000000/add-column.png" style= "width: 30px">
                         <% end %>
                     <% end  %>
                 </div>

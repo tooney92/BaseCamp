@@ -11,7 +11,7 @@
 <div class="thread-project-container">
     <%= link_to "/projects/#{params[:project_id]}/topics/index" do %>
     
-        <img src="/assets/back.png" style= "width: 30px">
+        <img src="https://img.icons8.com/carbon-copy/100/000000/circled-left-2.png" style= "width: 50px">
     <% end %>
     <div class="thread-section">
         <div class="heading">
@@ -28,9 +28,9 @@
                          |By: <%= message.user.fullname %> |
                         posted: <%= time_ago_in_words(message.created_at) %> ago | <br>
                          <%= link_to "/projects/#{@project.id}/topic/#{@topic.id}/messages/#{message.id}/edit" do %>
-                                <img src="/assets/edit.png">
+                            <img src="https://img.icons8.com/metro/26/000000/edit.png">
                             <% end %>|<%= link_to "/projects/#{@project.id}/topic/#{@topic.id}/messages/#{message.id}", data: {confirm: "Are you sure bout that"}, method: "delete" do %>
-                                <img src="/assets/delete2.png" style= "width: 30px"> <% end %>|
+                            <img src="https://img.icons8.com/dusk/64/000000/delete-sign.png" style= "width: 30px"> <% end %>|
                          <%# </div> %>
                     </div>
                     <%# <div class="comments-buttons">

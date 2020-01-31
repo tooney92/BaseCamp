@@ -11,11 +11,11 @@
 <div class="project-container">
     <% if session[:id] == @project.user_id %>
       <%= link_to user_projects_path do %>
-          <img src="/assets/back.png" style= "width: 50px">
+          <img src="https://img.icons8.com/carbon-copy/100/000000/circled-left-2.png" style= "width: 50px">
       <% end %>
     <% else %>
       <%= link_to users_path + "/shared_projects" do %>
-          <img src="/assets/back.png" style= "width: 50px">
+          <img src="https://img.icons8.com/carbon-copy/100/000000/circled-left-2.png" style= "width: 50px">
       <% end %>
     <% end %>
   <div class="project">
@@ -39,7 +39,7 @@
                   <%= image_tag file, :alt => "pic of me", :width => "90px", :height => "90px" %> <br>
                   <% if session[:id] == @project.user_id %>
                     <%= link_to "/projects/#{@project.id}/image/#{file.id}", data: { confirm: "Are you sure bout that" }, method: "delete" do %>
-                      <img src="/assets/delete2.png" style= "width: 30px">
+                    <img src="https://img.icons8.com/dusk/64/000000/delete-sign.png" style= "width: 30px">
                     <% end %>
                   <% end  %>
               </div>
@@ -48,10 +48,10 @@
                     <img src="/assets/file.svg"> 
                     <% if session[:id] == @project.user_id %>
                       <%= link_to "/projects/#{@project.id}/image/#{file.id}", data: { confirm: "Are you sure bout that" }, method: "delete" do %>
-                        <img src="/assets/delete2.png" style= "width: 30px">
+                        <img src="https://img.icons8.com/dusk/64/000000/delete-sign.png" style= "width: 30px">
                       <% end %>
                       <%= link_to rails_blob_path(file, disposition: "attachment") do %>
-                          <img src="/assets/download.png" style= "width: 20px" class = 'download'>
+                          <img src="https://img.icons8.com/clouds/100/000000/download.png" style= "width: 20px" class = 'download'>
                       <% end %>
                     <% end %>
                     <p><%= file.blob.filename %></p>

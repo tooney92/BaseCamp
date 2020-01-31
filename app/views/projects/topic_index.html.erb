@@ -12,7 +12,7 @@
 <div>
 <div class = "c"> 
     <%= link_to users_path+"/#{session[:id]}/projects/#{@project.id}" do %>
-        <img src="/assets/back.png" style= "width: 30px">
+        <img src="https://img.icons8.com/carbon-copy/100/000000/circled-left-2.png" style= "width: 50px">
     <% end %>
     <% if session[:id] == @project.user_id %>
         <div class="user-create-thread">
@@ -35,16 +35,16 @@
             <p class="card-text"><%= topic.title.length > 80 ? topic.title[0..77] + '...' : topic.title %></p>
             <div class="action">
                 <%= link_to "/projects/#{@project.id}/topic/#{topic.id}" do %>
-                    <img src="/assets/talk.png">
+                    <img src="https://img.icons8.com/windows/32/000000/talk-female.png">
                 <% end %>
                 <% if session[:id] == @project.user_id %>
                     <%= link_to "/projects/#{@project.id}/topic/#{topic.id}/edit" do %>
-                        <img src="/assets/edit.png">
+                        <img src="https://img.icons8.com/metro/26/000000/edit.png">
                     <% end %>
                 <% end  %>
                 <% if session[:id] == @project.user_id %>
                     <%= link_to "/projects/#{@project.id}/topic/#{topic.id}", data: {confirm: "Are you sure bout that"}, method: "delete" do %>
-                        <img src="/assets/delete2.png" style= "width: 30px">
+                        <img src="https://img.icons8.com/dusk/64/000000/delete-sign.png" style= "width: 30px">
                     <% end %>
                 <% end  %>
             </div>
