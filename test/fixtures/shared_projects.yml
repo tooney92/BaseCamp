@@ -1,17 +1,17 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
+  read: false
+  write: false
+  modify: false
+  trash: false
   user: one
   project: one
-  read: false
-  write: false
-  update: false
-  delete: false
 
 two:
-  user: two
-  project: two
   read: false
   write: false
-  update: false
-  delete: false
+  modify: false
+  trash: false
+  user: two
+  project: two

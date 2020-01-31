@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_30_094026) do
+ActiveRecord::Schema.define(version: 2020_01_31_160605) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -54,12 +54,12 @@ ActiveRecord::Schema.define(version: 2020_01_30_094026) do
   end
 
   create_table "shared_projects", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "project_id", null: false
     t.boolean "read"
     t.boolean "write"
     t.boolean "modify"
     t.boolean "trash"
+    t.integer "user_id", null: false
+    t.integer "project_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["project_id"], name: "index_shared_projects_on_project_id"
