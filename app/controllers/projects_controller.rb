@@ -111,7 +111,7 @@ class ProjectsController < ApplicationController
 
     def show_topic
         @project = Project.find(params[:project_id])
-        @user = User.find_by(session[:id].to_s)
+        @user = User.find(session[:id].to_s)
         @topic = Topic.find(params[:topic_id])
         # @messages = Message.find(@topic.id)
         render "thread_show"
