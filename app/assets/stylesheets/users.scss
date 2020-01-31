@@ -6,6 +6,10 @@
     padding: 10px;
 }
 
+.hide-on-desktop.right-part{
+    display: none;
+}
+
 .index-container{
     // background-color: rgb(136, 169, 190);
 
@@ -75,4 +79,22 @@
     .index-sign-up{
         width: 27vw;
     }
+}
+
+@media all and (max-width: 720px){
+    .hide-on-desktop.right-part{
+        display: block;
+        float: right;
+    }
+
+    .hide-on-desktop.right-part .shift-to-right{
+        display: inline-block;
+        color: #fff;
+        margin-right: 10px;
+    }
+
+    .navbar-dark .navbar-toggler{
+        display: none;
+    }
+
 }
