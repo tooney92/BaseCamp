@@ -1,6 +1,6 @@
 class ProjectsController < ApplicationController
     before_action :authorize_logout, :only => [:mytasks_project, :addtasks_project, :update_privilege, :edit_privilege, :myusers_project, :shared_projects, :add_user, :file_index, :delete_image, :delete_message, :edit_message, :new_message, :index_topic, :delete_topic, :update_topic, :edit_topic, :show_topic, :new_topic, :read, :update, :edit, :new, :index, :shared_projects, :create, :projects, :create_project, :show, :destroy, ]
-    before_action :check_authority, :only => [:create, :projects, :create_project, :show, :destroy]
+    before_action :check_authority, :only => [:show]
 
     def new
 
